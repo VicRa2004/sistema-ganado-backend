@@ -22,13 +22,6 @@ export interface User {
    rol: rol;
 }
 
-// Propietario
-export interface Owner {
-   id_owner: number;
-   name: string;
-   id_user: number;
-}
-
 // Terreno
 export interface Ground {
    id_ground: number;

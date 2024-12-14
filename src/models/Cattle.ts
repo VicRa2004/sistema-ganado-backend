@@ -3,7 +3,7 @@ import { sequelize } from "../config/db";
 import { Cattle as CattleType } from "../types"; // Ajusta la ruta de types.d.ts
 import { Iron } from "./Iron";
 import { Race } from "./Race";
-import { Owner } from "./Owner";
+import { User } from "./User";
 
 // Define los atributos opcionales para Cattle al crearlo
 interface CattleCreationAttributes extends Optional<CattleType, "id_cattle"> {}
@@ -27,7 +27,7 @@ export class Cattle
    public reason_for_withdrawal!: string;
    public id_iron!: number;
    public id_race!: number;
-   public id_owner!: number;
+   public id_user!: number;
 
    public readonly createdAt?: Date;
    public readonly updatedAt?: Date;
@@ -107,12 +107,12 @@ Cattle.init(
             key: "id_race",
          },
       },
-      id_owner: {
+      id_user: {
          type: DataTypes.INTEGER,
          allowNull: false,
          references: {
-            model: Owner,
-            key: "id_owner",
+            model: User,
+            key: "id_user",
          },
       },
    },
@@ -144,12 +144,12 @@ Cattle.belongsTo(Race, {
    targetKey: "id_race",
 });
 
-Owner.hasMany(Cattle, {
-   foreignKey: "id_owner",
-   sourceKey: "id_owner",
+User.hasMany(Cattle, {
+   foreignKey: "id_user",
+   sourceKey: "id_user",
 });
 
-Cattle.belongsTo(Owner, {
-   foreignKey: "id_owner",
-   targetKey: "id_owner",
+Cattle.belongsTo(User, {
+   foreignKey: "id_user",
+   targetKey: "id_user",
 });
