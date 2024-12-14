@@ -18,7 +18,7 @@ export const login = async (
             username: user.username,
             token, // Incluir el token en la respuesta
          },
-         statusCode: 200,
+         status: 200,
       });
    } catch (error) {
       handleError(error, req, res);
@@ -35,7 +35,7 @@ export const register = async (
       const newUser = await userCreate(data);
 
       res.status(200).json({
-         statusCode: 200,
+         status: 200,
          data: {
             email: newUser.email,
             fullname: newUser.fullname,

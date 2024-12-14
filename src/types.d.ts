@@ -90,6 +90,6 @@ export type reqQueryGet = {
    page?: string;
 };
 
-export type reqParamsId = {
+export type reqParamId = {
    id: string;
 };

@@ -13,7 +13,7 @@ export const handleError = (
 
    if (error instanceof JsonWebTokenError) {
       return res.status(401).json({
-         statusCode: 401,
+         status: 401,
          error: {
             messages: [error.message],
             type: "SESION",
@@ -23,7 +23,7 @@ export const handleError = (
 
    if (error instanceof TokenExpiredError) {
       return res.status(401).json({
-         statusCode: 401,
+         status: 401,
          error: {
             messages: [error.message],
             type: "SESION",
@@ -33,7 +33,7 @@ export const handleError = (
 
    if (error instanceof ErrorSesion) {
       return res.status(error.statusCode).json({
-         statusCode: error.statusCode,
+         status: error.statusCode,
          error: {
             messages: [error.message],
             type: "SESION",
@@ -43,7 +43,7 @@ export const handleError = (
 
    if (error instanceof ErrorController) {
       return res.status(error.statusCode).json({
-         statusCode: error.statusCode,
+         status: error.statusCode,
          error: {
             messages: [error.message],
             type: "SERVER",
@@ -53,7 +53,7 @@ export const handleError = (
 
    if (error instanceof ErrorSequelize) {
       return res.status(400).json({
-         statusCode: 400,
+         status: 400,
          error: {
             messages: [error.message],
             type: "DATABASE",
@@ -77,7 +77,7 @@ export const handleError = (
 
    if (error instanceof Error) {
       return res.status(500).json({
-         statusCode: 500,
+         status: 500,
          error: {
             messages: ["Internal server error"],
             type: "SERVER",
@@ -86,7 +86,7 @@ export const handleError = (
    }
 
    return res.status(500).json({
-      statusCode: 500,
+      status: 500,
       error: {
          messages: ["Unknown error"],
          type: "UNKNOWN",

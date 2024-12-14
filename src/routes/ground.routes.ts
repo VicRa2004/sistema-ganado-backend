@@ -1,9 +1,15 @@
 import { Router } from "express";
-import { getGrounds, createGround } from "../controllers/ground.controller";
+import {
+   getGrounds,
+   getOneGround,
+   createGround,
+   updateGround,
+   deleteGround,
+} from "../controllers/ground.controller";
 import { schemaValidation } from "../middlewares/schemaValidator.middleware";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import { groundBasicSchema } from "../schemas/ground.schema";
-import { getAllSchema } from "../schemas/default.schema";
+import { getAllSchema, paramIDSchema } from "../schemas/default.schema";
 import multer from "multer";
 
 const storage = multer.memoryStorage();
@@ -18,12 +24,36 @@ router.get(
    getGrounds
 );
 
+router.get(
+   "/ground/:id",
+   authMiddleware,
+   schemaValidation(paramIDSchema),
+   getOneGround
+);
+
 router.post(
    "/ground",
    authMiddleware,
    upload.single("image"),
    schemaValidation(groundBasicSchema),
    createGround
+);
+
+router.put(
+   "/ground/:id",
+   authMiddleware,
+   upload.single("image"),
+   schemaValidation(paramIDSchema),
+   schemaValidation(groundBasicSchema),
+   updateGround
+);
+
+router.delete(
+   "/ground/:id",
+   authMiddleware,
+   upload.single("image"),
+   schemaValidation(paramIDSchema),
+   deleteGround
 );
 
 export default router;

@@ -15,7 +15,7 @@ export const getAllSchema = z.object({
  * DELETE
  */
 
-export const paramSchema = z.object({
+export const paramIDSchema = z.object({
    params: z.object({
       id: z.string({
          required_error: "ID is required",
