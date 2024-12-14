@@ -3,7 +3,6 @@ import { ErrorController } from "../utils/errors";
 import { encrypt, compare } from "../utils/handleBcrypt";
 import jwt from "jsonwebtoken";
 import { RegisterType, LoginType } from "../schemas/auth.schema";
-import { User as UserType } from "../types";
 
 interface UserGetAllData {
    page: number;
@@ -70,9 +69,15 @@ export const userCreate = async (user: RegisterType) => {
    return await newUser.save();
 };
 
-export const userUpdate = async (user: UserType) => {};
+/*
+   Se debe de crear un metodo para solo actualizar un dato en
+   especifico, como updatePassword y updateCorreo
+ */
 
-export const userDelete = async (id: number) => {};
+//export const userUpdate = async (user: UserType) => {};
+
+// Por el momento no
+//export const userDelete = async (id: number) => {};
 
 export const userLogin = async (user: LoginType) => {
    const userFind = await userGetOneEmail(user.email);
