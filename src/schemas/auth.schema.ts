@@ -3,12 +3,10 @@ import { z } from "zod";
 export const loginSchema = z.object({
    body: z.object({
       password: z
-         .string()
-         .nonempty("Password is required")
+         .string({ required_error: "Password is required" })
          .min(6, "Password too short"),
       email: z
-         .string()
-         .nonempty("Email is required")
+         .string({ required_error: "Email is required" })
          .email("Write a correct email"),
    }),
 });
@@ -19,17 +17,14 @@ export type LoginType = z.infer<typeof loginSchema>["body"];
 export const registerSchema = z.object({
    body: z.object({
       fullname: z
-         .string()
-         .nonempty("Fullname is required")
+         .string({ required_error: "Fullname is required" })
          .max(255, "Solo se pueden escribir 255 caracteres"),
       password: z
-         .string()
-         .nonempty("Password is required")
+         .string({ required_error: "Password is required" })
          .min(6, "Password too short"),
-      username: z.string().nonempty("Username is required"),
+      username: z.string({ required_error: "Username is required" }),
       email: z
-         .string()
-         .nonempty("Email is required")
+         .string({ required_error: "Email is required" })
          .email("Write a correct email"),
    }),
 });

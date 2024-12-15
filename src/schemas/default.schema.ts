@@ -3,7 +3,6 @@ import { z } from "zod";
 /**
  * GET
  */
-
 export const getAllSchema = z.object({
    query: z.object({
       page: z.string().optional(),
@@ -14,7 +13,6 @@ export const getAllSchema = z.object({
  * GET ONE
  * DELETE
  */
-
 export const paramIDSchema = z.object({
    params: z.object({
       id: z.string({

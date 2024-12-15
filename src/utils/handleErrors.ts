@@ -5,8 +5,8 @@ import { ErrorController, ErrorSesion } from "../utils/errors";
 import { TokenExpiredError, JsonWebTokenError } from "jsonwebtoken";
 
 export const handleError = (
-   error: any,
-   req: Request<any, any, any, any, any>,
+   error: unknown,
+   req: Request<unknown, unknown, unknown, unknown>,
    res: Response
 ) => {
    console.log(error);
@@ -79,7 +79,7 @@ export const handleError = (
       return res.status(500).json({
          status: 500,
          error: {
-            messages: ["Internal server error"],
+            messages: [error.message],
             type: "SERVER",
          },
       });
