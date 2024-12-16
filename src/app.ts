@@ -1,3 +1,4 @@
+// Se agrega al principio para que carge bien
 import dotenv from "dotenv";
 import path from "path";
 
