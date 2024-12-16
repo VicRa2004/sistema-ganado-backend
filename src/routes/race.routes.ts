@@ -1,8 +1,15 @@
 import { Router } from "express";
 import { schemaValidation } from "../middlewares/schemaValidator.middleware";
 import { getAllSchema, paramIDSchema } from "../schemas/default.schema";
+import { raceBasicSchema } from "../schemas/race.schema";
 import { authMiddleware } from "../middlewares/auth.middleware";
-import { getAllRace, getOneRace } from "../controllers/race.controller";
+import {
+   getAllRace,
+   getOneRace,
+   createRace,
+   updateRace,
+   deleteRace,
+} from "../controllers/race.controller";
 import multer from "multer";
 
 const storage = multer.memoryStorage();
@@ -17,6 +24,29 @@ router.get(
    authMiddleware,
    schemaValidation(paramIDSchema),
    getOneRace
+);
+
+router.post(
+   "/race",
+   authMiddleware,
+   upload.single("image"),
+   schemaValidation(raceBasicSchema),
+   createRace
+);
+
+router.put(
+   "/race",
+   authMiddleware,
+   upload.single("image"),
+   schemaValidation(raceBasicSchema),
+   updateRace
+);
+
+router.delete(
+   "/race/:id",
+   authMiddleware,
+   schemaValidation(paramIDSchema),
+   deleteRace
 );
 
 export default router;

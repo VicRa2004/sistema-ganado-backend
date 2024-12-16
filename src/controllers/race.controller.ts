@@ -1,8 +1,16 @@
 import { Request, Response } from "express";
-import { raceGetAll, raceGetOneId } from "../services/race.service";
+import {
+   raceGetAll,
+   raceGetOneId,
+   raceCreate,
+   raceUpdate,
+   raceDelete,
+} from "../services/race.service";
+import { uploadImage } from "../services/upload.service";
 import { handleError } from "../utils/handleErrors";
 import { reqQueryGet, reqParamId } from "../types";
 import { getPage, getParamID } from "../utils/convertNumber";
+import { RaceBodyType } from "../schemas/race.schema";
 
 export const getAllRace = async (
    req: Request<unknown, unknown, unknown, reqQueryGet>,
@@ -38,8 +46,73 @@ export const getOneRace = async (req: Request<reqParamId>, res: Response) => {
    }
 };
 
-export const createRace = () => {};
+export const createRace = async (
+   req: Request<unknown, unknown, RaceBodyType>,
+   res: Response
+) => {
+   try {
+      const imageFile = req.file;
+      const { name, description } = req.body;
 
-export const updateRace = () => {};
+      let imageUrl = "";
+      if (imageFile) {
+         imageUrl = await uploadImage(imageFile);
+      }
 
-export const deleteRace = () => {};
+      const newRace = await raceCreate({ name, description, image: imageUrl });
+
+      res.status(200).json({
+         data: newRace,
+         status: 200,
+      });
+   } catch (error) {
+      handleError(error, req, res);
+   }
+};
+
+export const updateRace = async (
+   req: Request<reqParamId, unknown, RaceBodyType>,
+   res: Response
+) => {
+   try {
+      const imageFile = req.file;
+      const { name, description } = req.body;
+      const idRace = getParamID(req.params.id);
+
+      const { image } = await raceGetOneId({ idRace });
+
+      let imageUrl = image;
+      if (imageFile) {
+         imageUrl = await uploadImage(imageFile);
+      }
+
+      const newRace = await raceUpdate({
+         idRace,
+         name,
+         description,
+         image: imageUrl,
+      });
+
+      res.status(200).json({
+         data: newRace,
+         status: 200,
+      });
+   } catch (error) {
+      handleError(error, req, res);
+   }
+};
+
+export const deleteRace = async (req: Request<reqParamId>, res: Response) => {
+   try {
+      const id = getParamID(req.params.id);
+
+      await raceDelete({ idRace: id });
+
+      res.status(200).json({
+         status: 200,
+         message: "Race delete",
+      });
+   } catch (error) {
+      handleError(error, req, res);
+   }
+};
