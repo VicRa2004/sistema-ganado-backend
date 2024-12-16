@@ -2,7 +2,7 @@ import "express";
 
 declare module "express" {
    interface UserPayload {
-      id: string; // Cambia a `number` si el ID es numérico
+      id: number;
       email: string;
    }
 

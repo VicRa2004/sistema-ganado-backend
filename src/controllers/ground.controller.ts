@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { ErrorSesion } from "../utils/errors";
 import { uploadImage } from "../services/upload.service";
 import { handleError } from "../utils/handleErrors";
 import {
@@ -11,23 +10,22 @@ import {
 } from "../services/ground.service";
 import { GroundBodyType } from "../schemas/ground.schema";
 import { reqQueryGet, reqParamId } from "../types";
+import { getPage, getParamID } from "../utils/convertNumber";
+import { verifyUser } from "../utils/verifyUser";
 
 export const getGrounds = async (
    req: Request<unknown, unknown, unknown, reqQueryGet>,
    res: Response
 ) => {
    try {
-      const page = (req.query.page && parseInt(req.query.page)) || 1;
+      const page = getPage(req.query.page);
 
-      const id_user = req.user?.id;
+      const idUser = verifyUser(req.user?.id);
 
-      if (!id_user) {
-         throw new ErrorSesion();
-      }
-
-      const idUser = parseInt(id_user);
-
-      const { grounds, maxPages } = await groundGetAll({ idUser, page });
+      const { grounds, maxPages } = await groundGetAll({
+         idUser,
+         page,
+      });
 
       res.status(200).json({
          maxPages,
@@ -41,9 +39,11 @@ export const getGrounds = async (
 
 export const getOneGround = async (req: Request<reqParamId>, res: Response) => {
    try {
-      const id = parseInt(req.params.id);
+      const id = getParamID(req.params.id);
 
-      const ground = await groundGetOneId({ idGround: id });
+      const idUser = verifyUser(req.user?.id);
+
+      const ground = await groundGetOneId({ idGround: id, idUser });
 
       res.status(200).json({
          data: ground,
@@ -61,13 +61,7 @@ export const createGround = async (
    try {
       const imageFile = req.file;
       const { name } = req.body;
-      const id_user = req.user?.id;
-
-      if (!id_user) {
-         throw new ErrorSesion();
-      }
-
-      const idUser = parseInt(id_user);
+      const idUser = verifyUser(req.user?.id);
 
       let imageUrl = "";
       if (imageFile) {
@@ -94,18 +88,12 @@ export const updateGround = async (
    res: Response
 ) => {
    try {
-      const id = parseInt(req.params.id);
+      const id = getParamID(req.params.id);
       const imageFile = req.file;
       const { name } = req.body;
-      const id_user = req.user?.id;
+      const idUser = verifyUser(req.user?.id);
 
-      if (!id_user) {
-         throw new ErrorSesion();
-      }
-
-      const idUser = parseInt(id_user);
-
-      const { image } = await groundGetOneId({ idGround: id });
+      const { image } = await groundGetOneId({ idGround: id, idUser });
 
       let imageUrl = image;
 
@@ -133,9 +121,10 @@ export const updateGround = async (
 
 export const deleteGround = async (req: Request<reqParamId>, res: Response) => {
    try {
-      const id = parseInt(req.params.id);
+      const id = getParamID(req.params.id);
+      const idUser = verifyUser(req.user?.id);
 
-      await groundDelete({ idGround: id });
+      await groundDelete({ idGround: id, idUser });
 
       res.status(200).json({
          status: 200,

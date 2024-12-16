@@ -5,7 +5,7 @@ import { handleError } from "../utils/handleErrors";
 import { userGetOneId } from "../services/user.service";
 
 export const authMiddleware = async (
-   req: Request,
+   req: Request<unknown, unknown, unknown, unknown>,
    res: Response,
    next: NextFunction
 ) => {
@@ -22,17 +22,15 @@ export const authMiddleware = async (
 
       const decoded = jwt.verify(token, secret);
 
-      (req as any).user = decoded; // Agrega los datos del token al objeto `req`
+      req.user = decoded as { id: number; email: string }; // Agrega los datos del token al objeto `req`
 
-      const id_user = req.user?.id;
+      const id_user = req.user.id;
 
       if (!id_user) {
          throw new ErrorSesion();
       }
 
-      const idUser = parseInt(id_user);
-
-      await userGetOneId(idUser);
+      await userGetOneId(id_user);
       next();
    } catch (err) {
       handleError(err, req, res);

@@ -28,10 +28,14 @@ export const groundGetAll = async ({ idUser, page }: OwnerGetAllData) => {
 
 interface ownerGetOneIdData {
    idGround: number;
+   idUser: number;
 }
-export const groundGetOneId = async ({ idGround }: ownerGetOneIdData) => {
+export const groundGetOneId = async ({
+   idGround,
+   idUser,
+}: ownerGetOneIdData) => {
    const ground = await Ground.findOne({
-      where: { id_ground: idGround },
+      where: { id_ground: idGround, id_user: idUser },
    });
 
    if (!ground) {
@@ -90,8 +94,14 @@ export const groundUpdate = async ({
    };
 };
 
-export const groundDelete = async ({ idGround }: { idGround: number }) => {
-   const ground = await groundGetOneId({ idGround });
+export const groundDelete = async ({
+   idGround,
+   idUser,
+}: {
+   idGround: number;
+   idUser: number;
+}) => {
+   const ground = await groundGetOneId({ idGround, idUser });
 
    await ground.destroy();
 };
