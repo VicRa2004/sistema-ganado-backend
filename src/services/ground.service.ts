@@ -26,14 +26,14 @@ export const groundGetAll = async ({ idUser, page }: OwnerGetAllData) => {
    return { grounds, maxPages };
 };
 
-interface ownerGetOneIdData {
+interface groundGetOneIdData {
    idGround: number;
    idUser: number;
 }
 export const groundGetOneId = async ({
    idGround,
    idUser,
-}: ownerGetOneIdData) => {
+}: groundGetOneIdData) => {
    const ground = await Ground.findOne({
       where: { id_ground: idGround, id_user: idUser },
    });

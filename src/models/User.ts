@@ -16,6 +16,8 @@ export class User
    public username!: string;
    public email!: string;
    public rol!: rol;
+   public readonly createdAt?: Date;
+   public readonly updatedAt?: Date;
 }
 
 // Define el modelo usando Sequelize
@@ -52,6 +54,6 @@ User.init(
    {
       sequelize,
       modelName: "users",
-      timestamps: false, // Opcional: desactiva timestamps si no los usas
+      timestamps: true, // Opcional: desactiva timestamps si no los usas
    }
 );

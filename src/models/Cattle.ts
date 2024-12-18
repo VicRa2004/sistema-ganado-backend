@@ -64,7 +64,7 @@ Cattle.init(
       },
       earring_2: {
          type: DataTypes.STRING,
-         allowNull: true, // Opcional
+         allowNull: false,
       },
       color: {
          type: DataTypes.STRING,
@@ -75,6 +75,7 @@ Cattle.init(
          allowNull: false,
       },
       registration_number: {
+         // No se lo que sea
          type: DataTypes.INTEGER,
          allowNull: false,
          unique: true,

@@ -6,7 +6,7 @@ interface IronGetAllData {
    idUser: number;
 }
 
-export const ironGetAll = async ({ idUser, page }: IronGetAllData) => {
+const ironGetAll = async ({ idUser, page }: IronGetAllData) => {
    const limitPages = 10;
 
    const irons = await Iron.findAll({
@@ -29,7 +29,7 @@ interface IronGetOneData {
    idUser: number;
 }
 
-export const ironGetOne = async ({ idIron, idUser }: IronGetOneData) => {
+const ironGetOne = async ({ idIron, idUser }: IronGetOneData) => {
    const iron = await Iron.findOne({
       where: {
          id_iron: idIron,
@@ -52,7 +52,7 @@ interface IronCreateData {
    image: string;
 }
 
-export const ironCreate = async ({ image, idUser }: IronCreateData) => {
+const ironCreate = async ({ image, idUser }: IronCreateData) => {
    const newIron = await Iron.create({ id_user: idUser, image });
 
    return newIron;
@@ -62,7 +62,7 @@ interface IronUpdateData extends IronCreateData {
    idIron: number;
 }
 
-export const ironUpdate = async ({ idIron, image, idUser }: IronUpdateData) => {
+const ironUpdate = async ({ idIron, image, idUser }: IronUpdateData) => {
    await Iron.update(
       { image },
       {
@@ -80,8 +80,16 @@ export const ironUpdate = async ({ idIron, image, idUser }: IronUpdateData) => {
    };
 };
 
-export const ironDelete = async ({ idIron, idUser }: IronGetOneData) => {
+const ironDelete = async ({ idIron, idUser }: IronGetOneData) => {
    const iron = await ironGetOne({ idUser, idIron });
 
    await iron.destroy();
+};
+
+export const ironService = {
+   ironGetAll,
+   ironGetOne,
+   ironCreate,
+   ironUpdate,
+   ironDelete,
 };

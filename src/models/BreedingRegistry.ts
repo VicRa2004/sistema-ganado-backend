@@ -14,7 +14,6 @@ export class BreedingRegistry
    public id_registry!: number;
    public last_time!: Date;
    public id_cattle!: number;
-
    public readonly createdAt?: Date;
    public readonly updatedAt?: Date;
 }

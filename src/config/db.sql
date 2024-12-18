@@ -101,5 +101,3 @@ CREATE TABLE campo_db.tbGanadoCampo (
 
 
 
-
-
