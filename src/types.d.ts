@@ -11,8 +11,12 @@ declare module "express" {
    }
 }
 
+// Types de los modelos
+
 type rol = "admin" | "user";
 
+// Aqui se puede agregar si esta confirmado
+// o no para confirmar el correo
 export interface User {
    id_user: number;
    fullname: string;
@@ -47,23 +51,24 @@ export interface Iron {
 
 // Ganados
 export interface Cattle {
-   id_cattle: string;
+   id_cattle: number;
    description: string;
-   father: number;
-   mother: number;
-   gender: string;
-   earring_1: string;
-   earring_2: string;
+   father?: number;
+   mother?: number;
+   gender: "male" | "female";
+   registrationNumber: string; // Arete Numero grande
+   lotNumber: string; // Arete numero pequeño
    color: string;
    birthdate: Date;
-   registration_number: number;
-   observations: string;
+   observations?: string;
    image: string;
-   reason_for_withdrawal: string; // Motivo de baja
+   reason_for_withdrawal?: string; // Motivo de baja
    id_iron: number;
    id_race: number;
    id_user: number;
 }
+
+export interface CattleCreate extends Omit<CattleType, "id_cattle"> {}
 
 // Registro de crias
 export interface BreedingRegistry {
@@ -79,6 +84,9 @@ export interface CattleGround {
    id_ground: number;
 }
 
+// Tipos de dato adicionales
+
+// Types Controllers
 export type reqQueryGet = {
    page?: string;
 };

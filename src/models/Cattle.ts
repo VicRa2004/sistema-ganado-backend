@@ -1,27 +1,23 @@
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../config/db";
-import { Cattle as CattleType } from "../types"; // Ajusta la ruta de types.d.ts
 import { Iron } from "./Iron";
 import { Race } from "./Race";
 import { User } from "./User";
-
-// Define los atributos opcionales para Cattle al crearlo
-interface CattleCreationAttributes extends Optional<CattleType, "id_cattle"> {}
+import type { Cattle as CattleType, CattleCreate } from "../types";
 
 export class Cattle
-   extends Model<CattleType, CattleCreationAttributes>
+   extends Model<CattleType, CattleCreate>
    implements CattleType
 {
    public id_cattle!: string;
    public description!: string;
    public father!: number;
    public mother!: number;
-   public gender!: string;
-   public earring_1!: string;
-   public earring_2!: string;
+   public gender!: "male" | "female";
+   public registrationNumber: string;
+   public lotNumber: string;
    public color!: string;
    public birthdate!: Date;
-   public registration_number!: number;
    public observations!: string;
    public image!: string;
    public reason_for_withdrawal!: string;
@@ -58,11 +54,11 @@ Cattle.init(
             isIn: [["male", "female"]], // Validación para género
          },
       },
-      earring_1: {
+      registrationNumber: {
          type: DataTypes.STRING,
          allowNull: false,
       },
-      earring_2: {
+      lotNumber: {
          type: DataTypes.STRING,
          allowNull: false,
       },
@@ -73,12 +69,6 @@ Cattle.init(
       birthdate: {
          type: DataTypes.DATE,
          allowNull: false,
-      },
-      registration_number: {
-         // No se lo que sea
-         type: DataTypes.INTEGER,
-         allowNull: false,
-         unique: true,
       },
       observations: {
          type: DataTypes.TEXT,
@@ -120,7 +110,7 @@ Cattle.init(
    {
       sequelize,
       modelName: "cattle",
-      timestamps: true, // Incluye createdAt y updatedAt
+      timestamps: true,
    }
 );
 
