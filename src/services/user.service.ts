@@ -1,8 +1,10 @@
+import { vars } from "@config/vars";
 import { User } from "../models/User";
-import { ErrorController } from "../utils/errors";
-import { encrypt, compare } from "../utils/handleBcrypt";
-import jwt from "jsonwebtoken";
-import { RegisterType, LoginType } from "../schemas/auth.schema";
+import { ErrorController, ErrorValidateEmail } from "@utils/errors";
+import { encrypt, compare } from "@utils/handleBcrypt";
+import { emailService } from "./email.service";
+import { jwtOperations } from "@utils/jwt";
+import type { RegisterType, LoginType } from "../schemas/auth.schema";
 
 interface UserGetAllData {
    page: number;
@@ -69,6 +71,65 @@ export const userCreate = async (user: RegisterType) => {
    return await newUser.save();
 };
 
+export const userLogin = async (user: LoginType) => {
+   const userFind = await userGetOneEmail(user.email);
+
+   const isPasswordValid = await compare(user.password, userFind.password);
+
+   if (!isPasswordValid) {
+      throw new ErrorController({
+         message: "Incorrect password o email",
+         statusCode: 400,
+      });
+   }
+
+   const token = jwtOperations.createToken(userFind);
+
+   return {
+      user: userFind,
+      token,
+   };
+};
+
+// Enviamos el correo para confirmar el email
+export const userSendConfirmEmail = async (email: string) => {
+   const user = await userGetOneEmail(email);
+
+   const token = jwtOperations.createToken({ email, id: user.id_user });
+   const confirmationLink = `${vars.frontendUrl}/confirm-email?token=${token}`;
+
+   const html = `
+         <h1>Confirma tu email</h1>
+         <p>Haz clic en el siguiente enlace para confirmar tu correo electrónico:</p>
+         <a href="${confirmationLink}">Confirmar Email</a>
+      `;
+
+   await emailService.sendEmail({
+      to: email,
+      subject: "Confirma tu email",
+      html,
+   });
+};
+
+// Obtenemos el token de la ruta y verificamos que no halla caducado
+export const userVerifyEmail = async (token: string) => {
+   try {
+      const decoded = jwtOperations.verifyToken<{ email: string; id: number }>(
+         token
+      );
+
+      await User.update(
+         { email_confirm: true },
+         { where: { id_user: decoded.id } }
+      );
+   } catch {
+      throw new ErrorValidateEmail({
+         message: "El token de verificación es inválido o ha caducado",
+         statusCode: 400,
+      });
+   }
+};
+
 /*
    Se debe de crear un metodo para solo actualizar un dato en
    especifico, como updatePassword y updateCorreo
@@ -78,30 +139,3 @@ export const userCreate = async (user: RegisterType) => {
 
 // Por el momento no
 //export const userDelete = async (id: number) => {};
-
-export const userLogin = async (user: LoginType) => {
-   const userFind = await userGetOneEmail(user.email);
-
-   const isPasswordValid = await compare(user.password, userFind.password);
-   if (!isPasswordValid) {
-      throw new ErrorController({
-         message: "Incorrect password o email",
-         statusCode: 400,
-      });
-   }
-
-   const expiresIn = process.env.JWT_EXPIRES_IN || "7d";
-
-   console.log(expiresIn);
-
-   const payload = { id: userFind.id_user, email: userFind.email };
-   const secret = process.env.JWT_SECRET || "default_secret"; // Usa la clave secreta del .env
-   const token = jwt.sign(payload, secret, {
-      expiresIn, // Tiempo de expiración
-   });
-
-   return {
-      user: userFind,
-      token,
-   };
-};

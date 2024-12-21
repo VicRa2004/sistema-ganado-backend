@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
 import { ErrorSesion } from "../utils/errors";
 import { handleError } from "../utils/handleErrors";
 import { userGetOneId } from "../services/user.service";
+import { jwtOperations } from "@utils/jwt";
 
 export const authMiddleware = async (
    req: Request<unknown, unknown, unknown, unknown>,
@@ -16,13 +16,11 @@ export const authMiddleware = async (
          throw new ErrorSesion();
       }
 
-      const secret = process.env.JWT_SECRET || "default_secret";
+      const decoded = jwtOperations.verifyToken<{ id: number; email: string }>(
+         token
+      );
 
-      console.log(token);
-
-      const decoded = jwt.verify(token, secret);
-
-      req.user = decoded as { id: number; email: string }; // Agrega los datos del token al objeto `req`
+      req.user = decoded; // Agrega los datos del token al objeto `req`
 
       const id_user = req.user.id;
 

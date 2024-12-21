@@ -1,21 +1,18 @@
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../config/db";
-import { User as UserType, rol } from "../types"; // Asegúrate de ajustar la ruta de types.d.ts
+import type { UserCreate, User as UserType, rol } from "../types";
 
 // Define un tipo para la entrada opcional de atributos al crear un usuario
-interface UserCreationAttributes extends Optional<UserType, "id_user"> {}
 
 // Extiende el modelo de Sequelize con tus tipos
-export class User
-   extends Model<UserType, UserCreationAttributes>
-   implements UserType
-{
+export class User extends Model<UserType, UserCreate> implements UserType {
    public id_user!: number;
    public fullname!: string;
    public password!: string;
    public username!: string;
    public email!: string;
    public rol!: rol;
+   public email_confirm: boolean;
    public readonly createdAt?: Date;
    public readonly updatedAt?: Date;
 }
@@ -49,6 +46,10 @@ User.init(
       rol: {
          type: DataTypes.ENUM("admin", "user"), // Restringe valores al tipo "rol"
          allowNull: false,
+      },
+      email_confirm: {
+         type: DataTypes.BOOLEAN,
+         defaultValue: false,
       },
    },
    {

@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import { sequelize } from "../config/db";
+import { sequelize } from "@config/db";
 import { Iron } from "./Iron";
 import { Race } from "./Race";
 import { User } from "./User";
@@ -9,7 +9,7 @@ export class Cattle
    extends Model<CattleType, CattleCreate>
    implements CattleType
 {
-   public id_cattle!: string;
+   public id_cattle!: number;
    public description!: string;
    public father!: number;
    public mother!: number;
@@ -21,6 +21,7 @@ export class Cattle
    public observations!: string;
    public image!: string;
    public reason_for_withdrawal!: string;
+   public status: number;
    public id_iron!: number;
    public id_race!: number;
    public id_user!: number;
@@ -32,8 +33,9 @@ export class Cattle
 Cattle.init(
    {
       id_cattle: {
-         type: DataTypes.STRING,
+         type: DataTypes.NUMBER,
          primaryKey: true,
+         autoIncrement: true,
       },
       description: {
          type: DataTypes.TEXT,
@@ -81,6 +83,11 @@ Cattle.init(
       reason_for_withdrawal: {
          type: DataTypes.STRING,
          allowNull: true, // Opcional, se llena solo si está dado de baja
+      },
+      status: {
+         type: DataTypes.INTEGER,
+         allowNull: false,
+         defaultValue: 1,
       },
       id_iron: {
          type: DataTypes.INTEGER,

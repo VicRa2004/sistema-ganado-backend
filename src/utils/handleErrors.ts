@@ -1,7 +1,11 @@
 import { Response, Request } from "express";
 import { ZodError } from "zod";
 import { Error as ErrorSequelize } from "sequelize";
-import { ErrorController, ErrorSesion } from "../utils/errors";
+import {
+   ErrorController,
+   ErrorSesion,
+   ErrorValidateEmail,
+} from "../utils/errors";
 import { TokenExpiredError, JsonWebTokenError } from "jsonwebtoken";
 
 export const handleError = (
@@ -10,6 +14,16 @@ export const handleError = (
    res: Response
 ) => {
    console.log(error);
+
+   if (error instanceof ErrorValidateEmail) {
+      return res.status(401).json({
+         status: 401,
+         error: {
+            messages: [error.message],
+            type: "VALIDATE",
+         },
+      });
+   }
 
    if (error instanceof JsonWebTokenError) {
       return res.status(401).json({

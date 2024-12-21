@@ -8,6 +8,9 @@ const {
    CLOUDINARY_CLOUD_NAME: clCloudName = "",
    CLOUDINARY_API_KEY: clCloudApiKey = "",
    CLOUDINARY_API_SECRET: clApiSecret = "",
+   EMAIL_USER: email_user = "",
+   EMAIL_PASS: email_pass = "",
+   FRONTEND_URL: frontendUrl = "",
 } = process.env;
 
 export const vars = {
@@ -20,4 +23,7 @@ export const vars = {
    clCloudName,
    clCloudApiKey,
    clApiSecret,
+   email_user,
+   email_pass,
+   frontendUrl,
 };

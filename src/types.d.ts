@@ -11,6 +11,8 @@ declare module "express" {
    }
 }
 
+// Agregar la tabla venta ganado
+
 // Types de los modelos
 
 type rol = "admin" | "user";
@@ -24,7 +26,11 @@ export interface User {
    username: string;
    email: string;
    rol: rol;
+   email_confirm: boolean;
 }
+
+export interface UserCreate
+   extends Optional<User, "id_user" | "email_confirm"> {}
 
 // Terreno
 export interface Ground {
@@ -45,6 +51,7 @@ export interface Race {
 // Fierro
 export interface Iron {
    id_iron: number;
+   name: string;
    image: string;
    id_user: number;
 }
@@ -63,12 +70,14 @@ export interface Cattle {
    observations?: string;
    image: string;
    reason_for_withdrawal?: string; // Motivo de baja
+   //type_of_acquisition: "purchase" | "birth" | "donation";
+   status: number; // 1 Activo, 0 Inactivo
    id_iron: number;
    id_race: number;
    id_user: number;
 }
 
-export interface CattleCreate extends Omit<CattleType, "id_cattle"> {}
+export interface CattleCreate extends Omit<Cattle, "id_cattle" | "status"> {}
 
 // Registro de crias
 export interface BreedingRegistry {
@@ -77,11 +86,26 @@ export interface BreedingRegistry {
    id_cattle: number;
 }
 
+export interface BreedingRegistryCreate
+   extends Omit<BreedingRegistry, "id_registry"> {}
+
 // Ganado - Campo
 export interface CattleGround {
    id_cg: number;
    id_cattle: number;
    id_ground: number;
+}
+
+export interface CattleGroundCreate extends Omit<CattleGround, "id_cg"> {}
+
+// Ganado Venta
+
+export interface CattleSale {
+   id_sale: number; // Identificador único de la venta
+   id_cattle: number; // Referencia al ganado vendido
+   weight_sold: number; // Kilos de ganado vendidos
+   price_per_kg: number; // Precio por kilo
+   sale_date: Date; // Fecha de la venta
 }
 
 // Tipos de dato adicionales

@@ -27,6 +27,7 @@ export const cattleBasicSchema = z.object({
       birhtdate: z.date({ required_error: "Birhtdate is required" }),
       observations: z.string().optional(),
       reason_for_withdrawal: z.string().optional(),
+      status: z.number().min(0).max(1).optional(),
       id_iron: z.number({ required_error: "Iron is required" }).positive(),
       id_race: z.number({ required_error: "Race is required" }).positive(),
       id_user: z.number({ required_error: "User is required" }).positive(),

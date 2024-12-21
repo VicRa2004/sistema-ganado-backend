@@ -33,3 +33,20 @@ export class ErrorSesion extends Error {
       this.statusCode = statusCode;
    }
 }
+
+export class ErrorValidateEmail extends Error {
+   statusCode: number;
+   message: string;
+
+   constructor({
+      message = "",
+      statusCode = 400,
+   }: {
+      statusCode: number;
+      message: string;
+   }) {
+      super(message);
+
+      this.statusCode = statusCode;
+   }
+}
