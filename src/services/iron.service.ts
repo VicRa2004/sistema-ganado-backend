@@ -49,11 +49,12 @@ const ironGetOne = async ({ idIron, idUser }: IronGetOneData) => {
 
 interface IronCreateData {
    idUser: number;
+   name: string;
    image: string;
 }
 
-const ironCreate = async ({ image, idUser }: IronCreateData) => {
-   const newIron = await Iron.create({ id_user: idUser, image });
+const ironCreate = async ({ image, idUser, name }: IronCreateData) => {
+   const newIron = await Iron.create({ id_user: idUser, image, name });
 
    return newIron;
 };

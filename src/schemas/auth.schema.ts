@@ -31,3 +31,26 @@ export const registerSchema = z.object({
 
 // Tipo de dato del login
 export type RegisterType = z.infer<typeof registerSchema>["body"];
+
+/**
+ * GET
+ */
+export const getVerifySchema = z.object({
+   params: z.object({
+      token: z.string({ required_error: "Token is required" }).trim().min(1),
+   }),
+});
+
+export type GetVerifySchema = z.infer<typeof getVerifySchema>["params"];
+
+export const sendEmailSchema = z.object({
+   body: z.object({
+      email: z
+         .string({ required_error: "Email is required" })
+         .trim()
+         .email("Write a correct email"),
+   }),
+});
+
+// Tipo de dato del login
+export type SendEmailType = z.infer<typeof sendEmailSchema>["body"];

@@ -11,6 +11,7 @@ export class Iron
    implements IronType
 {
    public id_iron!: number;
+   public name: string;
    public image!: string;
    public id_user!: number;
 
@@ -24,6 +25,10 @@ Iron.init(
          type: DataTypes.INTEGER,
          primaryKey: true,
          autoIncrement: true,
+      },
+      name: {
+         type: DataTypes.STRING,
+         allowNull: false, // No debe ser nulo
       },
       image: {
          type: DataTypes.STRING,

@@ -10,7 +10,7 @@ const {
    CLOUDINARY_API_SECRET: clApiSecret = "",
    EMAIL_USER: email_user = "",
    EMAIL_PASS: email_pass = "",
-   FRONTEND_URL: frontendUrl = "",
+   FRONTEND_URL: frontendUrl = "localhost:4000",
 } = process.env;
 
 export const vars = {

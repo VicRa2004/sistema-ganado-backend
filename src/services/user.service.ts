@@ -10,7 +10,7 @@ interface UserGetAllData {
    page: number;
 }
 
-export const userGetAll = async ({ page }: UserGetAllData) => {
+const userGetAll = async ({ page }: UserGetAllData) => {
    const limitPages = 10;
 
    const users = await User.findAll({
@@ -21,7 +21,7 @@ export const userGetAll = async ({ page }: UserGetAllData) => {
    return users;
 };
 
-export const userGetOneId = async (id: number) => {
+const userGetOneId = async (id: number) => {
    // Buscamos el usuario por medio del email
    const user = await User.findOne({
       where: {
@@ -40,7 +40,7 @@ export const userGetOneId = async (id: number) => {
    return user;
 };
 
-export const userGetOneEmail = async (email: string) => {
+const userGetOneEmail = async (email: string) => {
    // Buscamos el usuario por medio del email
    const user = await User.findOne({
       where: {
@@ -59,7 +59,7 @@ export const userGetOneEmail = async (email: string) => {
    return user;
 };
 
-export const userCreate = async (user: RegisterType) => {
+const userCreate = async (user: RegisterType) => {
    const newPassword = await encrypt(user.password);
 
    const newUser = await User.create({
@@ -71,7 +71,7 @@ export const userCreate = async (user: RegisterType) => {
    return await newUser.save();
 };
 
-export const userLogin = async (user: LoginType) => {
+const userLogin = async (user: LoginType) => {
    const userFind = await userGetOneEmail(user.email);
 
    const isPasswordValid = await compare(user.password, userFind.password);
@@ -92,7 +92,7 @@ export const userLogin = async (user: LoginType) => {
 };
 
 // Enviamos el correo para confirmar el email
-export const userSendConfirmEmail = async (email: string) => {
+const userSendConfirmEmail = async (email: string) => {
    const user = await userGetOneEmail(email);
 
    const token = jwtOperations.createToken({ email, id: user.id_user });
@@ -112,7 +112,7 @@ export const userSendConfirmEmail = async (email: string) => {
 };
 
 // Obtenemos el token de la ruta y verificamos que no halla caducado
-export const userVerifyEmail = async (token: string) => {
+const userVerifyEmail = async (token: string) => {
    try {
       const decoded = jwtOperations.verifyToken<{ email: string; id: number }>(
          token
@@ -128,6 +128,16 @@ export const userVerifyEmail = async (token: string) => {
          statusCode: 400,
       });
    }
+};
+
+export const userService = {
+   userGetAll,
+   userGetOneId,
+   userGetOneEmail,
+   userCreate,
+   userLogin,
+   userSendConfirmEmail,
+   userVerifyEmail,
 };
 
 /*

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { ErrorSesion } from "../utils/errors";
 import { handleError } from "../utils/handleErrors";
-import { userGetOneId } from "../services/user.service";
+import { userService } from "../services/user.service";
 import { jwtOperations } from "@utils/jwt";
 
 export const authMiddleware = async (
@@ -28,7 +28,7 @@ export const authMiddleware = async (
          throw new ErrorSesion();
       }
 
-      await userGetOneId(id_user);
+      await userService.userGetOneId(id_user);
       next();
    } catch (err) {
       handleError(err, req, res);

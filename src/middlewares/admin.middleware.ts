@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { verifyUser } from "../utils/verifyUser";
-import { userGetOneId } from "../services/user.service";
+import { userService } from "../services/user.service";
 import { handleError } from "../utils/handleErrors";
 import { ErrorController } from "../utils/errors";
 
@@ -12,7 +12,7 @@ export const isAdminMiddleware = async (
    try {
       const idUser = verifyUser(req.user?.id);
 
-      const user = await userGetOneId(idUser);
+      const user = await userService.userGetOneId(idUser);
 
       if (user.rol === "admin") {
          next();

@@ -6,6 +6,7 @@ import { uploadImage } from "../services/upload.service";
 import { ErrorController } from "../utils/errors";
 import type { Request, Response } from "express";
 import type { reqQueryGet, reqParamId } from "../types";
+import type { IronBodyType } from "@schemas/iron.schema";
 
 const getAllIrons = async (
    req: Request<unknown, unknown, unknown, reqQueryGet>,
@@ -46,10 +47,14 @@ const getOneIron = async (req: Request<reqParamId>, res: Response) => {
    }
 };
 
-const createIron = async (req: Request, res: Response) => {
+const createIron = async (
+   req: Request<unknown, unknown, IronBodyType>,
+   res: Response
+) => {
    try {
       const imageFile = req.file;
       const idUser = verifyUser(req.user?.id);
+      const name = req.body.name;
 
       // Quiza si sea mejor que la imagen del fierro sea obligatiora,
       // por la falta de otros campos
@@ -66,6 +71,7 @@ const createIron = async (req: Request, res: Response) => {
       const newIron = await ironService.ironCreate({
          idUser,
          image: imageUrl,
+         name,
       });
 
       return void res.status(201).json({
@@ -77,11 +83,15 @@ const createIron = async (req: Request, res: Response) => {
    }
 };
 
-const updateIron = async (req: Request<reqParamId>, res: Response) => {
+const updateIron = async (
+   req: Request<reqParamId, unknown, IronBodyType>,
+   res: Response
+) => {
    try {
       const idIron = getParamID(req.params.id);
       const idUser = verifyUser(req.user?.id);
       const imageFile = req.file;
+      const name = req.body.name;
 
       const { image } = await ironService.ironGetOne({ idIron, idUser });
 
@@ -94,6 +104,7 @@ const updateIron = async (req: Request<reqParamId>, res: Response) => {
          idIron,
          idUser,
          image: imageUrl,
+         name,
       });
 
       return void res.status(200).json({
