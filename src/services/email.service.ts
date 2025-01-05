@@ -24,7 +24,7 @@ interface EmailOptions {
 const sendEmail = async ({ to, subject, html }: EmailOptions) => {
    try {
       await transporter.sendMail({
-         from: `"YourApp" <${vars.email_user}>`,
+         from: `"GanaderoPro" <${vars.email_user}>`,
          to,
          subject,
          html,
