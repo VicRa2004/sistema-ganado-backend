@@ -12,6 +12,8 @@ export const authMiddleware = async (
    const token = req.headers.authorization?.split(" ")[1]; // El formato es "Bearer TOKEN"
 
    try {
+      console.log(token);
+
       if (!token) {
          throw new ErrorSesion();
       }

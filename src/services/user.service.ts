@@ -83,7 +83,10 @@ const userLogin = async (user: LoginType) => {
       });
    }
 
-   const token = jwtOperations.createToken(userFind);
+   const token = jwtOperations.createToken({
+      id: userFind.id_user,
+      email: userFind.email,
+   });
 
    return {
       user: userFind,
@@ -96,7 +99,10 @@ const userSendConfirmEmail = async (email: string) => {
    const user = await userGetOneEmail(email);
 
    const token = jwtOperations.createToken({ email, id: user.id_user });
-   const confirmationLink = `${vars.frontendUrl}/confirm-email?token=${token}`;
+   const confirmationLink = `${vars.frontendUrl}/verify-email/${token}`;
+
+   console.log("token de verificacion de email");
+   console.log(token);
 
    const html = `
          <h1>Confirma tu email</h1>

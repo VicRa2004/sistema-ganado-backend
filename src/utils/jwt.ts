@@ -4,7 +4,7 @@ import { vars } from "@config/vars";
 const createToken = <T extends object>(data: T) => {
    const expiresIn = vars.jwtExpiresIn;
 
-   const payload = data;
+   const payload = JSON.parse(JSON.stringify(data));
    const secret = vars.jwtSecret;
 
    const token = jwt.sign(payload, secret, {

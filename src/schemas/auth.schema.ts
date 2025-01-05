@@ -14,6 +14,7 @@ export const loginSchema = z.object({
 // Tipo de dato del login
 export type LoginType = z.infer<typeof loginSchema>["body"];
 
+// Tipo de dato del register
 export const registerSchema = z.object({
    body: z.object({
       fullname: z
@@ -29,7 +30,7 @@ export const registerSchema = z.object({
    }),
 });
 
-// Tipo de dato del login
+// Tipo de dato del register
 export type RegisterType = z.infer<typeof registerSchema>["body"];
 
 /**

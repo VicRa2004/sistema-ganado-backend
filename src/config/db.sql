@@ -93,8 +93,11 @@ CREATE TABLE campo_db.tbGanadoCampo (
     -- FOREIGN KEY (gnd_cmp_user_id) REFERENCES tbUsuarios(user_id)
 );
 
+use campo_db;
 
+select * from users;
 
+update users set email_confirm = 1 where id_user = 1;
 
 
 

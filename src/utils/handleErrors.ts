@@ -13,7 +13,7 @@ export const handleError = (
    req: Request<unknown, unknown, unknown, unknown>,
    res: Response
 ) => {
-   console.log(error);
+   console.log(error as Error);
 
    if (error instanceof ErrorValidateEmail) {
       return res.status(401).json({

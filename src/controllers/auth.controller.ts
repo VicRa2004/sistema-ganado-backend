@@ -7,7 +7,7 @@ import type {
    GetVerifySchema,
    SendEmailType,
 } from "../schemas/auth.schema";
-import { ErrorController } from "@utils/errors";
+import { ErrorValidateEmail } from "@utils/errors";
 
 const login = async (
    req: Request<unknown, unknown, LoginType>,
@@ -17,7 +17,7 @@ const login = async (
       const { user, token } = await userService.userLogin(req.body);
 
       if (!user.email_confirm) {
-         throw new ErrorController({
+         throw new ErrorValidateEmail({
             statusCode: 401,
             message: "Email not verified",
          });
@@ -26,6 +26,7 @@ const login = async (
       // Responder con el token y datos del usuario
       res.status(200).json({
          data: {
+            id_user: user.id_user,
             email: user.email,
             fullname: user.fullname,
             username: user.username,
