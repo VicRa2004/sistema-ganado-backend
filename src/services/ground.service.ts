@@ -1,5 +1,6 @@
 import { ErrorController } from "../utils/errors";
 import { Ground } from "../models/Ground";
+import { GroundCreate, Ground as GroundType } from "../types";
 
 interface OwnerGetAllData {
    page: number;
@@ -48,49 +49,60 @@ export const groundGetOneId = async ({
    return ground;
 };
 
-interface groundCreateData {
-   idUser: number;
-   name: string;
-   image: string;
-}
-
 export const groundCreate = async ({
-   idUser,
    name,
    image,
-}: groundCreateData) => {
-   const newGround = await Ground.create({ name, image, id_user: idUser });
+   id_user,
+   address,
+   length,
+   width,
+   notes,
+}: GroundCreate) => {
+   const newGround = await Ground.create({
+      name,
+      image,
+      id_user,
+      address,
+      length,
+      width,
+      notes,
+   });
 
    return newGround;
 };
 
-interface groundUpdateData extends groundCreateData {
-   idGround: number;
-}
 export const groundUpdate = async ({
-   idGround,
+   id_ground,
    name,
    image,
-   idUser,
-}: groundUpdateData) => {
+   id_user,
+   address,
+   length,
+   notes,
+   width,
+}: GroundType) => {
    await Ground.update(
       {
-         id_user: idUser,
+         id_user,
          name,
          image,
+         address,
+         length,
+         notes,
+         width,
       },
       {
          where: {
-            id_ground: idGround,
+            id_ground: id_ground,
          },
       }
    );
 
    return {
-      id_ground: idGround,
+      id_ground,
       name,
       image,
-      id_user: idUser,
+      id_user,
    };
 };
 

@@ -10,7 +10,7 @@ const {
    CLOUDINARY_API_SECRET: clApiSecret = "",
    EMAIL_USER: email_user = "",
    EMAIL_PASS: email_pass = "",
-   FRONTEND_URL: frontendUrl = "http://localhost:5173/",
+   FRONTEND_URL: frontendUrl = "http://localhost:5173/#",
    BREVO_API_KEY: brevo_api_key = "",
 } = process.env;
 

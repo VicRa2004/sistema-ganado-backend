@@ -95,7 +95,15 @@ CREATE TABLE campo_db.tbGanadoCampo (
 
 use campo_db;
 
+show tables;
+
 select * from users;
+
+SHOW INDEX FROM users;
+
+ALTER TABLE users DROP INDEX email;
+
+
 
 update users set email_confirm = 1 where id_user = 1;
 

@@ -24,7 +24,7 @@ routes.post(
    authController.sendVerifyEmail
 );
 
-routes.put(
+routes.post(
    "/verify-email/:token",
    schemaValidation(getVerifySchema),
    authController.verifyEmail

@@ -35,10 +35,16 @@ export interface UserCreate
 // Terreno
 export interface Ground {
    id_ground: number;
+   notes: string;
    name: string;
+   length: number;
+   width: number;
+   address: string;
    image: string;
    id_user: number;
 }
+
+export interface GroundCreate extends Omit<Ground, "id_ground"> {}
 
 // Raza
 export interface Race {

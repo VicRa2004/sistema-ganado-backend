@@ -30,7 +30,11 @@ export const authMiddleware = async (
          throw new ErrorSesion();
       }
 
-      await userService.userGetOneId(id_user);
+      try {
+         await userService.userGetOneId(id_user);
+      } catch {
+         throw new ErrorSesion();
+      }
       next();
    } catch (err) {
       handleError(err, req, res);

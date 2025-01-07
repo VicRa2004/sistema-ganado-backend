@@ -60,8 +60,8 @@ export const createGround = async (
 ) => {
    try {
       const imageFile = req.file;
-      const { name } = req.body;
-      const idUser = verifyUser(req.user?.id);
+      const { name, address, length, width, notes } = req.body;
+      const id_user = verifyUser(req.user?.id);
 
       let imageUrl = "";
       if (imageFile) {
@@ -69,9 +69,13 @@ export const createGround = async (
       }
 
       const newGround = await groundCreate({
-         idUser,
+         id_user,
          image: imageUrl,
          name,
+         address,
+         length,
+         width,
+         notes,
       });
 
       res.status(201).json({
@@ -90,7 +94,7 @@ export const updateGround = async (
    try {
       const id = getParamID(req.params.id);
       const imageFile = req.file;
-      const { name } = req.body;
+      const { name, address, length, width, notes } = req.body;
       const idUser = verifyUser(req.user?.id);
 
       const { image } = await groundGetOneId({ idGround: id, idUser });
@@ -104,10 +108,14 @@ export const updateGround = async (
       }
 
       const newGround = await groundUpdate({
-         idGround: id,
-         idUser,
+         id_ground: id,
+         id_user: idUser,
          name,
+         address,
+         length,
+         width,
          image: imageUrl,
+         notes,
       });
 
       res.status(200).json({
