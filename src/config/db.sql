@@ -97,7 +97,7 @@ use campo_db;
 
 show tables;
 
-select * from users;
+select * from grounds;
 
 SHOW INDEX FROM users;
 

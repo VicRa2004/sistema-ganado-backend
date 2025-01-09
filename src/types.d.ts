@@ -35,8 +35,8 @@ export interface UserCreate
 // Terreno
 export interface Ground {
    id_ground: number;
-   notes: string;
    name: string;
+   notes: string;
    length: number;
    width: number;
    address: string;
