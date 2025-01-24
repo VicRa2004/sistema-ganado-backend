@@ -102,6 +102,7 @@ const updateCattle = async (
       image: imageUrl,
       status,
       id_cattle: idCattle,
+      id_user: idUser,
     });
 
     res.status(200).json({
@@ -126,6 +127,12 @@ const deleteCattle = async (req: Request<reqParamId>, res: Response) => {
   } catch (error) {
     handleError(error, req, res);
   }
-}
+};
 
-export const cattleController = { getCattles, getOneCattle, createCattle, updateCattle, deleteCattle };
+export const cattleController = {
+  getCattles,
+  getOneCattle,
+  createCattle,
+  updateCattle,
+  deleteCattle,
+};
