@@ -24,7 +24,7 @@ export const cattleBasicSchema = z.object({
          .trim()
          .min(1)
          .max(50),
-      birhtdate: z.date({ required_error: "Birhtdate is required" }),
+      birthdate: z.date({ required_error: "Birthdate is required" }),
       observations: z.string().optional(),
       reason_for_withdrawal: z.string().optional(),
       status: z.number().min(0).max(1).optional(),
