@@ -1,52 +1,50 @@
 import { Router } from "express";
+import { cattleController } from "@controllers/cattle.controller";
 import { schemaValidation } from "../middlewares/schemaValidator.middleware";
 import { getAllSchema, paramIDSchema } from "../schemas/default.schema";
-import { raceBasicSchema } from "../schemas/race.schema";
+import { cattleBasicSchema } from "../schemas/cattle.schema";
 import { authMiddleware } from "../middlewares/auth.middleware";
-import {
-  getAllRace,
-  getOneRace,
-  createRace,
-  updateRace,
-  deleteRace,
-} from "../controllers/race.controller";
 import multer from "multer";
-
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 const router = Router();
 
-router.get("/race", authMiddleware, schemaValidation(getAllSchema), getAllRace);
+router.get(
+  "/cattle",
+  authMiddleware,
+  schemaValidation(getAllSchema),
+  cattleController.getCattles
+);
 
 router.get(
-  "/race/:id",
+  "/cattle/:id",
   authMiddleware,
   schemaValidation(paramIDSchema),
-  getOneRace
+  cattleController.getOneCattle
 );
 
 router.post(
-  "/race",
+  "/cattle",
   authMiddleware,
   upload.single("image"),
-  schemaValidation(raceBasicSchema),
-  createRace
+  schemaValidation(cattleBasicSchema),
+  cattleController.createCattle
 );
 
 router.put(
-  "/race",
+  "/cattle",
   authMiddleware,
   upload.single("image"),
-  schemaValidation(raceBasicSchema),
-  updateRace
+  schemaValidation(cattleBasicSchema),
+  cattleController.updateCattle
 );
 
 router.delete(
-  "/race/:id",
+  "/cattle/:id",
   authMiddleware,
   schemaValidation(paramIDSchema),
-  deleteRace
+  cattleController.deleteCattle
 );
 
 export default router;
