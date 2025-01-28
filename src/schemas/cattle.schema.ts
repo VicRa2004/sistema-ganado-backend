@@ -30,6 +30,7 @@ export const cattleBasicSchema = z.object({
     status: z.number().min(0).max(1).optional(),
     id_iron: z.number({ required_error: "Iron is required" }).positive(),
     id_race: z.number({ required_error: "Race is required" }).positive(),
+    id_ground: z.number({ required_error: "Ground is required" }).positive(),
   }),
 });
 

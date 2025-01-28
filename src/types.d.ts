@@ -1,14 +1,14 @@
 import "express";
 
 declare module "express" {
-   interface UserPayload {
-      id: number;
-      email: string;
-   }
+  interface UserPayload {
+    id: number;
+    email: string;
+  }
 
-   interface Request {
-      user?: UserPayload; // Adjunta el payload del token JWT
-   }
+  interface Request {
+    user?: UserPayload; // Adjunta el payload del token JWT
+  }
 }
 
 // Agregar la tabla venta ganado
@@ -20,86 +20,86 @@ type rol = "admin" | "user";
 // Aqui se puede agregar si esta confirmado
 // o no para confirmar el correo
 export interface User {
-   id_user: number;
-   fullname: string;
-   password: string;
-   username: string;
-   email: string;
-   rol: rol;
-   email_confirm: boolean;
+  id_user: number;
+  fullname: string;
+  password: string;
+  username: string;
+  email: string;
+  rol: rol;
+  email_confirm: boolean;
 }
 
 export interface UserCreate
-   extends Optional<User, "id_user" | "email_confirm"> {}
+  extends Optional<User, "id_user" | "email_confirm"> {}
 
 // Terreno
 export interface Ground {
-   id_ground: number;
-   name: string;
-   notes: string;
-   length: number;
-   width: number;
-   address: string;
-   image: string;
-   id_user: number;
+  id_ground: number;
+  name: string;
+  notes: string;
+  length: number;
+  width: number;
+  address: string;
+  image: string;
+  id_user: number;
 }
 
 export interface GroundCreate extends Omit<Ground, "id_ground"> {}
 
 // Raza
 export interface Race {
-   id_race: number;
-   name: string;
-   description: string;
-   image: string;
+  id_race: number;
+  name: string;
+  description: string;
+  image: string;
 }
 
 // Fierro
 export interface Iron {
-   id_iron: number;
-   name: string;
-   image: string;
-   id_user: number;
+  id_iron: number;
+  name: string;
+  image: string;
+  id_user: number;
 }
 
 // Ganados
 export interface Cattle {
-   id_cattle: number;
-   description: string;
-   father?: number;
-   mother?: number;
-   gender: "male" | "female";
-   registrationNumber: string; // Arete Numero grande
-   lotNumber: string; // Arete numero pequeño
-   color: string;
-   birthdate: Date;
-   observations?: string;
-   image: string;
-   reason_for_withdrawal?: string; // Motivo de baja
-   //type_of_acquisition: "purchase" | "birth" | "donation";
-   status: number; // 1 Activo, 0 Inactivo
-   id_iron: number;
-   id_race: number;
-   id_user: number;
+  id_cattle: number;
+  description: string;
+  father?: number;
+  mother?: number;
+  gender: "male" | "female";
+  registrationNumber: string; // Arete Numero grande
+  lotNumber: string; // Arete numero pequeño
+  color: string;
+  birthdate: Date;
+  observations?: string;
+  image: string;
+  reason_for_withdrawal?: string; // Motivo de baja
+  status: number; // 1 Activo, 0 Inactivo
+  id_iron: number;
+  id_race: number;
+  id_user: number;
+  id_ground: number;
 }
 
 export interface CattleCreate extends Omit<Cattle, "id_cattle" | "status"> {}
 
 // Registro de crias
 export interface BreedingRegistry {
-   id_registry: number;
-   last_time: Date;
-   id_cattle: number;
+  id_registry: number;
+  last_time: Date;
+  id_cattle: number;
 }
 
 export interface BreedingRegistryCreate
-   extends Omit<BreedingRegistry, "id_registry"> {}
+  extends Omit<BreedingRegistry, "id_registry"> {}
 
 // Ganado - Campo
 export interface CattleGround {
-   id_cg: number;
-   id_cattle: number;
-   id_ground: number;
+  id_cg: number;
+  id_cattle: number;
+  id_ground: number;
 }
 
 export interface CattleGroundCreate extends Omit<CattleGround, "id_cg"> {}
@@ -107,20 +107,20 @@ export interface CattleGroundCreate extends Omit<CattleGround, "id_cg"> {}
 // Ganado Venta
 
 export interface CattleSale {
-   id_sale: number; // Identificador único de la venta
-   id_cattle: number; // Referencia al ganado vendido
-   weight_sold: number; // Kilos de ganado vendidos
-   price_per_kg: number; // Precio por kilo
-   sale_date: Date; // Fecha de la venta
+  id_sale: number; // Identificador único de la venta
+  id_cattle: number; // Referencia al ganado vendido
+  weight_sold: number; // Kilos de ganado vendidos
+  price_per_kg: number; // Precio por kilo
+  sale_date: Date; // Fecha de la venta
 }
 
 // Tipos de dato adicionales
 
 // Types Controllers
 export type reqQueryGet = {
-   page?: string;
+  page?: string;
 };
 
 export type reqParamId = {
-   id: string;
+  id: string;
 };

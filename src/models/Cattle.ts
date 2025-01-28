@@ -3,6 +3,7 @@ import { sequelize } from "@config/db";
 import { Iron } from "./Iron";
 import { Race } from "./Race";
 import { User } from "./User";
+import { Ground } from "./Ground";
 import type { Cattle as CattleType, CattleCreate } from "../types";
 
 export class Cattle
@@ -25,6 +26,7 @@ export class Cattle
   public id_iron!: number;
   public id_race!: number;
   public id_user!: number;
+  public id_ground!: number;
 
   public readonly createdAt?: Date;
   public readonly updatedAt?: Date;
@@ -113,6 +115,14 @@ Cattle.init(
         key: "id_user",
       },
     },
+    id_ground: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: Ground,
+        key: "id_ground",
+      },
+    },
   },
   {
     sequelize,
@@ -150,4 +160,14 @@ User.hasMany(Cattle, {
 Cattle.belongsTo(User, {
   foreignKey: "id_user",
   targetKey: "id_user",
+});
+
+Ground.hasMany(Cattle, {
+  foreignKey: "id_ground",
+  sourceKey: "id_ground",
+});
+
+Cattle.belongsTo(Ground, {
+  foreignKey: "id_ground",
+  targetKey: "id_ground",
 });
