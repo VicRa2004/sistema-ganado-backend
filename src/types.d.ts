@@ -36,10 +36,10 @@ export interface UserCreate
 export interface Ground {
   id_ground: number;
   name: string;
-  notes: string;
+  notes?: string;
   length: number;
   width: number;
-  address: string;
+  address?: string;
   image: string;
   id_user: number;
 }
