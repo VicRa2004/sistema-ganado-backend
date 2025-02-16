@@ -117,7 +117,7 @@ Cattle.init(
     },
     id_ground: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: Ground,
         key: "id_ground",

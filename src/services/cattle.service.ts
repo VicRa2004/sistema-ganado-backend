@@ -8,7 +8,7 @@ interface CattleGetAllData {
 }
 
 const cattleGetAll = async ({ page, idUser }: CattleGetAllData) => {
-  const limitPages = 10;
+  const limitPages = 9;
 
   const cattles = await Cattle.findAll({
     limit: limitPages,
@@ -40,7 +40,7 @@ const cattleGetOne = async ({ idCattle, idUser }: CattleGetOneData) => {
 
   if (!cattle) {
     throw new ErrorController({
-      message: "Iron not found",
+      message: "Cattle not found",
       statusCode: 401,
     });
   }

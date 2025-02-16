@@ -1,4 +1,4 @@
-import { string, z } from "zod";
+import { z } from "zod";
 
 /**
  * CREATE
@@ -20,7 +20,8 @@ export const cattleBasicSchema = z.object({
       .trim()
       .min(6)
       .max(12),
-    color: string({ required_error: "Color is required" })
+    color: z
+      .string({ required_error: "Color is required" })
       .trim()
       .min(1)
       .max(50),
