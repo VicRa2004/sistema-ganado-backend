@@ -85,6 +85,12 @@ export interface Cattle {
 
 export interface CattleCreate extends Omit<Cattle, "id_cattle" | "status"> {}
 
+/**
+ * Aqui hay algo raro, creo que debe de ir un id_mother y un id_son
+ * para saber cual fue la cria que tuvo, ademas de quitar la ultima vez que eso se
+ * sabra un una relacion de traer el ultimo ganado que tuvo
+ */
+
 // Registro de crias
 export interface BreedingRegistry {
   id_registry: number;

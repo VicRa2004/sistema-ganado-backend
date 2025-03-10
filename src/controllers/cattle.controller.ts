@@ -129,10 +129,62 @@ const deleteCattle = async (req: Request<reqParamId>, res: Response) => {
   }
 };
 
+const getCattlesByParent = async (
+  req: Request<reqParamId, unknown, unknown, reqQueryGet>,
+  res: Response
+) => {
+  try {
+    const page = getPage(req.query.page);
+    const idCattle = getParamID(req.params.id);
+    const idUser = verifyUser(req.user?.id);
+
+    const { cattles, maxPages } = await cattleService.cattleGetAllByParent({
+      idUser,
+      page,
+      idCattle,
+    });
+
+    res.status(200).json({
+      maxPages,
+      data: cattles, // Todas las crias de un ganado
+      status: 200,
+    });
+  } catch (error) {
+    handleError(error, req, res);
+  }
+};
+
+const getCattlesByGround = async (
+  req: Request<reqParamId, unknown, unknown, reqQueryGet>,
+  res: Response
+) => {
+  try {
+    const page = getPage(req.query.page);
+    const idGround = getParamID(req.params.id);
+    const idUser = verifyUser(req.user?.id);
+
+    const { cattles, maxPages } = await cattleService.cattleGetAllByGround({
+      idUser,
+      page,
+      idGround,
+    });
+
+    res.status(200).json({
+      maxPages,
+      data: cattles, // Todos los ganados de un mismo terreno
+      status: 200,
+    });
+  } catch (error) {
+    handleError(error, req, res);
+  }
+};
+
 export const cattleController = {
   getCattles,
   getOneCattle,
   createCattle,
   updateCattle,
   deleteCattle,
+  getCattlesByParent,
+  getCattlesByGround,
 };

@@ -47,4 +47,20 @@ router.delete(
   cattleController.deleteCattle
 );
 
+router.get(
+  "/cattle/parent/:id",
+  authMiddleware,
+  schemaValidation(paramIDSchema),
+  schemaValidation(getAllSchema),
+  cattleController.getCattlesByParent
+);
+
+router.get(
+  "/cattle/ground/:id",
+  authMiddleware,
+  schemaValidation(paramIDSchema),
+  schemaValidation(getAllSchema),
+  cattleController.getCattlesByGround
+);
+
 export default router;
