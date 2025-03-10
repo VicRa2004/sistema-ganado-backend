@@ -14,7 +14,13 @@ export const cattleBasicSchema = z.object({
     father: z.number().optional(),
     mother: z.number().optional(),
     gender: z.enum(["male", "female"]).optional().default("male"),
-    registrationNumber: z.string().trim().min(8).max(15),
+    registrationNumber: z
+      .string({
+        required_error: "Registration number is required",
+      })
+      .trim()
+      .min(8)
+      .max(15),
     lotNumber: z
       .string({ required_error: "Lot number is required" })
       .trim()
