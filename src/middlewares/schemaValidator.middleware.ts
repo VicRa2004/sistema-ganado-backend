@@ -6,14 +6,16 @@ export const schemaValidation =
   (schema: AnyZodObject) =>
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      console.log("REQ BODY");
-      console.log(req.body);
       if (req.body.data) {
         if (typeof req.body.data === "string") {
           req.body.data = JSON.parse(req.body.data);
         }
 
-        console.log("Data body:");
+        if (req.body.data.birthdate) {
+          req.body.data.birthdate = new Date(req.body.data.birthdate);
+        }
+
+        console.log(req.body.data);
       }
 
       // Validación del esquema

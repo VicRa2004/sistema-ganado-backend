@@ -53,9 +53,11 @@ const createCattle = async (
 ) => {
   try {
     const imageFile = req.file;
-    const cattle = req.body;
+    const cattle = req.body.data;
 
     const idUser = verifyUser(req.user?.id);
+
+    const status = cattle.status ?? 1;
 
     let imageUrl = "";
     if (imageFile) {
@@ -66,6 +68,7 @@ const createCattle = async (
       ...cattle,
       image: imageUrl,
       id_user: idUser,
+      status,
     });
 
     res.status(201).json({
@@ -83,7 +86,7 @@ const updateCattle = async (
 ) => {
   try {
     const imageFile = req.file;
-    const cattle = req.body;
+    const cattle = req.body.data;
     const idCattle = getParamID(req.params.id);
 
     const idUser = verifyUser(req.user?.id);

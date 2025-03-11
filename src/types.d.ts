@@ -83,7 +83,7 @@ export interface Cattle {
   id_ground: number;
 }
 
-export interface CattleCreate extends Omit<Cattle, "id_cattle" | "status"> {}
+export interface CattleCreate extends Omit<Cattle, "id_cattle"> {}
 
 /**
  * Aqui hay algo raro, creo que debe de ir un id_mother y un id_son
