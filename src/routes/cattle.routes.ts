@@ -33,7 +33,7 @@ router.post(
 );
 
 router.put(
-  "/cattle",
+  "/cattle/:id",
   authMiddleware,
   upload.single("image"),
   schemaValidation(cattleBasicSchema),

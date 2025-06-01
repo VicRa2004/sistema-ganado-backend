@@ -1,19 +1,48 @@
 import { Cattle } from "../models/Cattle";
 import { ErrorController } from "../utils/errors";
 import { CattleCreate, Cattle as CattleType } from "../types";
+import { Iron } from "@models/Iron";
+import { Race } from "@models/Race";
+import { Ground } from "@models/Ground";
 
 interface CattleGetAllData {
   page: number;
   idUser: number;
+  gender?: string;
+  id_iron?: number;
+  id_race?: number;
+  status?: number;
 }
 
-const cattleGetAll = async ({ page, idUser }: CattleGetAllData) => {
+const cattleGetAll = async ({
+  page,
+  idUser,
+  gender,
+  id_iron,
+  id_race,
+  status,
+}: CattleGetAllData) => {
   const limitPages = 9;
+
+  const filteredQuery = Object.fromEntries(
+    Object.entries({
+      id_user: idUser,
+      gender,
+      id_iron,
+      id_race,
+      status,
+    }).filter(([_, value]) => value !== undefined)
+  );
 
   const cattles = await Cattle.findAll({
     limit: limitPages,
     offset: limitPages * (page - 1),
-    where: { id_user: idUser },
+    where: filteredQuery,
+    include: [
+      { model: Iron },
+      { model: Race },
+      { model: Ground },
+    ],
   });
 
   const countCattles = await Cattle.count({
@@ -36,6 +65,11 @@ const cattleGetOne = async ({ idCattle, idUser }: CattleGetOneData) => {
       id_cattle: idCattle,
       id_user: idUser,
     },
+    include: [
+      { model: Iron },
+      { model: Race },
+      { model: Ground },
+    ],
   });
 
   if (!cattle) {

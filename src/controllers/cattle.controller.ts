@@ -6,19 +6,25 @@ import { CattleBodyType } from "@schemas/cattle.schema";
 import { reqQueryGet, reqParamId } from "../types";
 import { getPage, getParamID } from "@utils/convertNumber";
 import { verifyUser } from "@utils/verifyUser";
+import { GetAllQueryCattleType } from "@schemas/query.schema";
 
 const getCattles = async (
-  req: Request<unknown, unknown, unknown, reqQueryGet>,
+  req: Request<unknown, unknown, unknown, GetAllQueryCattleType>,
   res: Response
 ) => {
   try {
-    const page = getPage(req.query.page);
+    // obtenemos todos los parametros de la query
+    const { page, gender, id_iron, id_race, status } = req.query;
 
     const idUser = verifyUser(req.user?.id);
 
     const { cattles, maxPages } = await cattleService.cattleGetAll({
       idUser,
-      page,
+      page: page ?? 1,
+      gender,
+      id_iron,
+      id_race,
+      status,
     });
 
     res.status(200).json({
