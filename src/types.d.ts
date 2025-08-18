@@ -66,8 +66,8 @@ export interface Iron {
 export interface Cattle {
   id_cattle: number;
   description: string;
-  father?: number;
-  mother?: number;
+  father?: number | null ;
+  mother?: number | null;
   gender: "male" | "female";
   registrationNumber: string; // Arete Numero grande
   lotNumber: string; // Arete numero pequeño

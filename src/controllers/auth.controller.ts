@@ -30,7 +30,8 @@ const login = async (
             email: user.email,
             fullname: user.fullname,
             username: user.username,
-            token, // Incluir el token en la respuesta
+            token, // Incluir el token en la respuesta,
+            rol: user.rol
          },
          status: 200,
       });

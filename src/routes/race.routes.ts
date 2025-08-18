@@ -35,7 +35,7 @@ router.post(
 );
 
 router.put(
-  "/race",
+  "/race/:id",
   authMiddleware,
   upload.single("image"),
   schemaValidation(raceBasicSchema),

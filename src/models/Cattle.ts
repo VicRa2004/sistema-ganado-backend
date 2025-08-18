@@ -171,3 +171,17 @@ Cattle.belongsTo(Ground, {
   foreignKey: "id_ground",
   targetKey: "id_ground",
 });
+
+// Padre (father)
+Cattle.belongsTo(Cattle, {
+  as: "Father", // Alias
+  foreignKey: "father",
+  targetKey: "id_cattle",
+});
+
+// Madre (mother)
+Cattle.belongsTo(Cattle, {
+  as: "Mother", // Alias
+  foreignKey: "mother",
+  targetKey: "id_cattle",
+});

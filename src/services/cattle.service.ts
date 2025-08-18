@@ -42,6 +42,8 @@ const cattleGetAll = async ({
       { model: Iron },
       { model: Race },
       { model: Ground },
+      { model: Cattle, as: "Father" },
+      { model: Cattle, as: "Mother" },
     ],
   });
 
@@ -69,6 +71,8 @@ const cattleGetOne = async ({ idCattle, idUser }: CattleGetOneData) => {
       { model: Iron },
       { model: Race },
       { model: Ground },
+      { model: Cattle, as: "Father" },
+      { model: Cattle, as: "Mother" },
     ],
   });
 
@@ -83,12 +87,30 @@ const cattleGetOne = async ({ idCattle, idUser }: CattleGetOneData) => {
 };
 
 const cattleCreate = async (cattleData: CattleCreate) => {
+
+  if (cattleData.father == -1) {
+    cattleData.father = undefined;
+  }
+
+  if (cattleData.mother == -1) {
+    cattleData.mother = undefined;
+  }
+
   const cattle = await Cattle.create(cattleData);
 
   return cattle;
 };
 
 const cattleUpdate = async (cattleData: CattleType) => {
+
+  if (cattleData.father == -1) {
+    cattleData.father = null;
+  }
+
+  if (cattleData.mother == -1) {
+    cattleData.mother = null;
+  }
+
   await Cattle.update(cattleData, {
     where: {
       id_cattle: cattleData.id_cattle,
