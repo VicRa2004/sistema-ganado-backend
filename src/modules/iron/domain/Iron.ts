@@ -40,7 +40,7 @@ export class Iron extends AggregateRoot {
   }
 
   getImage() {
-    return this.image.getValue();
+    return this.image.getRawValue();
   }
 
   getIdUser() {
