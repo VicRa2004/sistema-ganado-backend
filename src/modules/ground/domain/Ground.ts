@@ -4,6 +4,19 @@ import { Id } from "@/modules/shared/domain/value-objects/Id";
 import { NumberValue } from "@/modules/shared/domain/value-objects/NumberValue";
 import { StringValue } from "@/modules/shared/domain/value-objects/StringValue";
 
+interface GroundProps {
+  id?: number;
+  name: string;
+  image: string;
+  width: number;
+  length: number;
+  address: string;
+  notes: string;
+  idUser: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 export class Ground extends AggregateRoot {
   private constructor(
     id: Id,
@@ -19,4 +32,10 @@ export class Ground extends AggregateRoot {
   ) {
     super(id, createdAt, updatedAt);
   }
+
+  //public static create(props: GroundProps) {
+  //  return new Ground(
+  //    new Id(props.id),
+  //  );
+  //}
 }

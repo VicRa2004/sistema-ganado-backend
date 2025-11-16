@@ -7,4 +7,16 @@ export abstract class AggregateRoot {
     private createdAt: DateValue,
     private updatedAt: DateValue
   ) {}
+
+  getId() {
+    return this.id.getValue();
+  }
+
+  getCreatedAt() {
+    return this.createdAt.getValue();
+  }
+
+  getUpdatedAt() {
+    return this.updatedAt.getValue();
+  }
 }
