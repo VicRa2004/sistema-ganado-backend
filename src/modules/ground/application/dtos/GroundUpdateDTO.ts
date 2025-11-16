@@ -6,5 +6,5 @@ export interface GroundUpdateDTO {
   length?: number;
   address?: string;
   notes?: string;
-  idUser: number;
+  idUser: number; // No actualiza este valor
 }
