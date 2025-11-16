@@ -3,9 +3,13 @@ import { ErrorInvalidDate } from "../errors/ErrorInvalidDate";
 export class DateValue {
   private readonly value?: Date;
 
-  constructor(date?: string | Date) {
+  private constructor(date?: string | Date) {
     this.value = this.parse(date);
     this.ensureIsValid();
+  }
+
+  static create(data?: Date | string) {
+    return new DateValue(data);
   }
 
   private parse(date?: string | Date): Date | undefined {

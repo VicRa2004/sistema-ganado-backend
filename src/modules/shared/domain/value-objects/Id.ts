@@ -3,9 +3,13 @@ import { ErrorInvalidID } from "../errors/ErrorInvalidID";
 export class Id {
   private readonly value: number | undefined;
 
-  constructor(id?: number) {
+  private constructor(id?: number) {
     this.value = id;
     this.ensureIsValid();
+  }
+
+  static create(id?: number) {
+    return new Id(id);
   }
 
   private ensureIsValid() {

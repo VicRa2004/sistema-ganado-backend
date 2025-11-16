@@ -1,9 +1,13 @@
 export class StringValue {
   private readonly value?: string;
 
-  constructor(value?: string) {
+  private constructor(value?: string) {
     this.value = value;
     this.ensureIsValid();
+  }
+
+  static create(value?: string) {
+    return new StringValue(value);
   }
 
   private ensureIsValid() {
@@ -12,11 +16,6 @@ export class StringValue {
     if (typeof this.value !== "string") {
       throw new Error(`Invalid string value: ${this.value}`);
     }
-
-    // Evitar strings vacíos opcionalmente
-    // if (this.value.trim().length === 0) {
-    //   throw new Error("String cannot be empty");
-    // }
   }
 
   public getValue() {

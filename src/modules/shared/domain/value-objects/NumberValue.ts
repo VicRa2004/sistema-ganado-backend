@@ -1,9 +1,13 @@
 export class NumberValue {
   private readonly value: number | undefined;
 
-  constructor(id?: number) {
-    this.value = id;
+  private constructor(number?: number) {
+    this.value = number;
     this.ensureIsValid();
+  }
+
+  static create(number?: number) {
+    return new NumberValue(number);
   }
 
   private ensureIsValid() {
