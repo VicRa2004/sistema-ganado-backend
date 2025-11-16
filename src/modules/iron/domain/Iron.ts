@@ -3,8 +3,17 @@ import { DateValue } from "@/modules/shared/domain/value-objects/DateValue";
 import { Id } from "@/modules/shared/domain/value-objects/Id";
 import { StringValue } from "@/modules/shared/domain/value-objects/StringValue";
 
+interface IronProps {
+  id?: number;
+  name: string;
+  image: string;
+  idUser: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 export class Iron extends AggregateRoot {
-  constructor(
+  private constructor(
     id: Id,
     private name: StringValue,
     private image: StringValue,
@@ -13,6 +22,17 @@ export class Iron extends AggregateRoot {
     updatedAt: DateValue
   ) {
     super(id, createdAt, updatedAt);
+  }
+
+  static create(props: IronProps) {
+    return new Iron(
+      Id.create(props.id),
+      StringValue.create(props.name),
+      StringValue.create(props.image),
+      Id.create(props.idUser),
+      DateValue.create(props.createdAt),
+      DateValue.create(props.updatedAt)
+    );
   }
 
   getName() {
