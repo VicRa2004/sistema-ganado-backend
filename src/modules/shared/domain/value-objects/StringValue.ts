@@ -20,9 +20,13 @@ export class StringValue {
 
   public getValue() {
     if (!this.value) {
-      throw new Error("Id no exits");
+      throw new Error("String no exits");
     }
 
+    return this.value;
+  }
+
+  public getRawValue() {
     return this.value;
   }
 

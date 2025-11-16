@@ -37,6 +37,6 @@ export class Cattle extends AggregateRoot {
   }
 
   setDescripcion(descripcion: string) {
-    this.descripcion = new StringValue(descripcion);
+    this.descripcion = StringValue.create(descripcion);
   }
 }
