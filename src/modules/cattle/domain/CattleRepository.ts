@@ -1,4 +1,4 @@
-import { Pagination } from "@/modules/shared/domain/Pagination";
+import { Pagination } from "@/core/shared/domain/Pagination";
 import { Gender } from "./Gender";
 import { Cattle } from "./Cattle";
 

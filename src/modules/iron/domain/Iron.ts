@@ -1,7 +1,7 @@
-import { AggregateRoot } from "@/modules/shared/domain/AggregateRoot";
-import { DateValue } from "@/modules/shared/domain/value-objects/DateValue";
-import { Id } from "@/modules/shared/domain/value-objects/Id";
-import { StringValue } from "@/modules/shared/domain/value-objects/StringValue";
+import { AggregateRoot } from "@/core/shared/domain/AggregateRoot";
+import { DateValue } from "@/core/shared/domain/value-objects/DateValue";
+import { Id } from "@/core/shared/domain/value-objects/Id";
+import { StringValue } from "@/core/shared/domain/value-objects/StringValue";
 
 interface IronProps {
   id?: number;

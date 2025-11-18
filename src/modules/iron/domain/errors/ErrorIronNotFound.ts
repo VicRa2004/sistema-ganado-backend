@@ -1,4 +1,4 @@
-import { ErrorNotFound } from "@/modules/shared/domain/errors/ErrorNotFound";
+import { ErrorNotFound } from "@/core/shared/domain/errors/ErrorNotFound";
 
 export class ErrorIronNotFound extends ErrorNotFound {
   constructor() {

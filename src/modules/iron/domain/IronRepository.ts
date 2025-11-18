@@ -1,4 +1,4 @@
-import { Pagination } from "@/modules/shared/domain/Pagination";
+import { Pagination } from "@/core/shared/domain/Pagination";
 import { Iron } from "./Iron";
 
 export interface IronFilters {
