@@ -87,7 +87,6 @@ const cattleGetOne = async ({ idCattle, idUser }: CattleGetOneData) => {
 };
 
 const cattleCreate = async (cattleData: CattleCreate) => {
-
   if (cattleData.father == -1) {
     cattleData.father = undefined;
   }
@@ -102,7 +101,6 @@ const cattleCreate = async (cattleData: CattleCreate) => {
 };
 
 const cattleUpdate = async (cattleData: CattleType) => {
-
   if (cattleData.father == -1) {
     cattleData.father = null;
   }
