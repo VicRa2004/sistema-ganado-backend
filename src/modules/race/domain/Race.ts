@@ -8,8 +8,8 @@ interface RaceProps {
   name: string;
   description: string;
   image?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export class Race extends AggregateRoot {
