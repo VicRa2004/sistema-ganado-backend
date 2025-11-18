@@ -8,7 +8,6 @@ export class UserMapper {
       fullName: user.getFullName(),
       userName: user.getUserName(),
       email: user.getEmail(),
-      password: user.getPassword(),
       rol: user.getRol(),
       emailComfirm: user.isEmailConfirm(),
       createdAt: user.getCreatedAt(),

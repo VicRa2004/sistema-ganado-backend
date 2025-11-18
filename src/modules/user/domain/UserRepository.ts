@@ -12,6 +12,7 @@ export interface UserFilters {
 export interface UserRepository {
   find(filters: UserFilters): Promise<Pagination<User>>;
   findById(id: number): Promise<User | null>;
+  findByEmail(id: string): Promise<User | null>;
 
   create(user: User): Promise<User>;
   update(user: User): Promise<User>;
