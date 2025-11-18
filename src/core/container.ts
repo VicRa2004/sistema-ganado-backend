@@ -1,4 +1,4 @@
-import { CloudinaryImageUploader } from "./images/infrastructure/CloudinaryImageUploader";
+import { CloudinaryImageUploader } from "../modules/images/infrastructure/CloudinaryImageUploader";
 
 const uploader = new CloudinaryImageUploader(
   process.env.CLOUDINARY_CLOUD_NAME!,
