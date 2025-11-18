@@ -1,5 +1,6 @@
 export interface IronUpdateDTO {
   id: number;
-  name: string;
-  image: string;
+  name?: string;
+  image?: string;
+  idUser: number;
 }
