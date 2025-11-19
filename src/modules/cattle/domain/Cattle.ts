@@ -21,10 +21,10 @@ interface CattleProps {
   status: boolean;
   idFather?: number;
   idMother?: number;
-  idIron: number;
+  idIron?: number;
   idRace: number;
   idUser: number;
-  idGround: number;
+  idGround?: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -54,10 +54,32 @@ export class Cattle extends AggregateRoot {
     super(id, createdAt, updatedAt);
   }
 
-  static create(props: CattleProps) {}
+  static create(props: CattleProps) {
+    return new Cattle(
+      Id.create(props.id),
+      StringValue.create(props.description),
+      props.gender,
+      RegistrationNumber.create(props.registrationNumber),
+      LotNumber.create(props.lotNumber),
+      StringValue.create(props.color),
+      DateValue.create(props.birthdate),
+      StringValue.create(props.observations),
+      StringValue.create(props.image),
+      StringValue.create(props.reasonForWithdrawal),
+      Status.create(props.status ? 1 : 0),
+      Id.create(props.idFather),
+      Id.create(props.idMother),
+      Id.create(props.idIron),
+      Id.create(props.idRace),
+      Id.create(props.idUser),
+      Id.create(props.idGround),
+      DateValue.create(props.createdAt),
+      DateValue.create(props.updatedAt)
+    );
+  }
 
   getDescripcion() {
-    this.descripcion.getValue();
+    return this.descripcion.getValue();
   }
 
   getGender() {
@@ -105,7 +127,7 @@ export class Cattle extends AggregateRoot {
   }
 
   getIdIron() {
-    return this.idIron.getValue();
+    return this.idIron.getRawValue();
   }
 
   getIdRace() {
