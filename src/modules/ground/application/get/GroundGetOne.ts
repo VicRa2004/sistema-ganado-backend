@@ -5,7 +5,7 @@ import { GroundMapper } from "../mappers/ground-mapper";
 export class GroundGetAll {
   constructor(private repository: GroundRepository) {}
 
-  async run(id: number, idUser: number) {
+  async run(id: number, idUser?: number) {
     const item = await this.repository.findById(id, idUser);
 
     if (!item) {
