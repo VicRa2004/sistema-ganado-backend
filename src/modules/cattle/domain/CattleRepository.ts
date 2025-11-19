@@ -13,7 +13,7 @@ export interface CattleFilters {
 
 export interface CattleRepository {
   find(filters: CattleFilters): Promise<Pagination<Cattle>>;
-  findById(id: number): Promise<Cattle | null>;
+  findById(id: number, idUser?: number): Promise<Cattle | null>;
 
   create(cattle: Cattle): Promise<Cattle>;
   update(cattle: Cattle): Promise<Cattle>;
