@@ -1,0 +1,100 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  admin
+  user
+}
+
+model User {
+  id_user       Int      @id @default(autoincrement())
+  fullname      String
+  password      String
+  username      String   @unique
+  email         String   @unique
+  rol           UserRole
+  email_confirm Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  irons   Iron[]
+  grounds Ground[]
+  cattles Cattle[]
+}
+
+model Race {
+  id_race     Int      @id @default(autoincrement())
+  name        String
+  description String?
+  image       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  cattles Cattle[]
+}
+
+model Iron {
+  id_iron   Int      @id @default(autoincrement())
+  name      String
+  image     String
+  id_user   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user    User     @relation(fields: [id_user], references: [id_user], onDelete: Cascade, onUpdate: Cascade)
+  cattles Cattle[]
+}
+
+model Ground {
+  id_ground Int      @id @default(autoincrement())
+  name      String
+  image     String?
+  width     Float?
+  length    Float?
+  address   String?
+  notes     String?
+  id_user   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user    User     @relation(fields: [id_user], references: [id_user], onDelete: Cascade, onUpdate: Cascade)
+  cattles Cattle[]
+}
+
+model Cattle {
+  id_cattle             Int      @id @default(autoincrement())
+  description           String
+  father                Int?
+  mother                Int?
+  gender                String
+  registrationNumber    String
+  lotNumber             String
+  color                 String
+  birthdate             DateTime
+  observations          String?
+  image                 String
+  reason_for_withdrawal String?
+  status                Int      @default(1)
+  id_iron               Int
+  id_race               Int
+  id_user               Int
+  id_ground             Int?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  // Relations
+  iron   Iron    @relation(fields: [id_iron], references: [id_iron], onDelete: Cascade, onUpdate: Cascade)
+  race   Race    @relation(fields: [id_race], references: [id_race], onDelete: Cascade, onUpdate: Cascade)
+  user   User    @relation(fields: [id_user], references: [id_user], onDelete: Cascade, onUpdate: Cascade)
+  ground Ground? @relation(fields: [id_ground], references: [id_ground], onDelete: Cascade, onUpdate: Cascade)
+}
