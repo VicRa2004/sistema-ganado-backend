@@ -13,7 +13,7 @@ enum UserRole {
 }
 
 model User {
-  id_user       Int      @id @default(autoincrement())
+  id            Int      @id @default(autoincrement())
   fullname      String
   password      String
   username      String   @unique
@@ -30,9 +30,9 @@ model User {
 }
 
 model Race {
-  id_race     Int      @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String
-  description String?
+  description String
   image       String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -42,7 +42,7 @@ model Race {
 }
 
 model Iron {
-  id_iron   Int      @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   name      String
   image     String
   id_user   Int
@@ -50,24 +50,24 @@ model Iron {
   updatedAt DateTime @updatedAt
 
   // Relations
-  user    User     @relation(fields: [id_user], references: [id_user], onDelete: Cascade, onUpdate: Cascade)
+  user    User     @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: Cascade)
   cattles Cattle[]
 }
 
 model Ground {
-  id_ground Int      @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   name      String
   image     String?
-  width     Float?
-  length    Float?
-  address   String?
-  notes     String?
+  width     Float
+  length    Float
+  address   String
+  notes     String
   id_user   Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relations
-  user    User     @relation(fields: [id_user], references: [id_user], onDelete: Cascade, onUpdate: Cascade)
+  user    User     @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: Cascade)
   cattles Cattle[]
 }
 
@@ -81,7 +81,7 @@ model Cattle {
   lotNumber             String
   color                 String
   birthdate             DateTime
-  observations          String?
+  observations          String
   image                 String
   reason_for_withdrawal String?
   status                Int      @default(1)
@@ -93,8 +93,8 @@ model Cattle {
   updatedAt             DateTime @updatedAt
 
   // Relations
-  iron   Iron    @relation(fields: [id_iron], references: [id_iron], onDelete: Cascade, onUpdate: Cascade)
-  race   Race    @relation(fields: [id_race], references: [id_race], onDelete: Cascade, onUpdate: Cascade)
-  user   User    @relation(fields: [id_user], references: [id_user], onDelete: Cascade, onUpdate: Cascade)
-  ground Ground? @relation(fields: [id_ground], references: [id_ground], onDelete: Cascade, onUpdate: Cascade)
+  iron   Iron    @relation(fields: [id_iron], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  race   Race    @relation(fields: [id_race], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user   User    @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  ground Ground? @relation(fields: [id_ground], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
