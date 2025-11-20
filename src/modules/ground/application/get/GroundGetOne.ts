@@ -2,7 +2,7 @@ import { ErrorGroundNotFound } from "../../domain/errors/ErrorGroundNotFound";
 import { GroundRepository } from "../../domain/GroundRepository";
 import { GroundMapper } from "../mappers/ground-mapper";
 
-export class GroundGetAll {
+export class GroundGetOne {
   constructor(private repository: GroundRepository) {}
 
   async run(id: number, idUser?: number) {
