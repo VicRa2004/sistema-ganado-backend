@@ -72,7 +72,7 @@ model Ground {
 }
 
 model Cattle {
-  id_cattle             Int      @id @default(autoincrement())
+  id                    Int      @id @default(autoincrement())
   description           String
   father                Int?
   mother                Int?
@@ -85,7 +85,7 @@ model Cattle {
   image                 String
   reason_for_withdrawal String?
   status                Int      @default(1)
-  id_iron               Int
+  id_iron               Int?
   id_race               Int
   id_user               Int
   id_ground             Int?
@@ -93,7 +93,7 @@ model Cattle {
   updatedAt             DateTime @updatedAt
 
   // Relations
-  iron   Iron    @relation(fields: [id_iron], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  iron   Iron?   @relation(fields: [id_iron], references: [id], onDelete: Cascade, onUpdate: Cascade)
   race   Race    @relation(fields: [id_race], references: [id], onDelete: Cascade, onUpdate: Cascade)
   user   User    @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: Cascade)
   ground Ground? @relation(fields: [id_ground], references: [id], onDelete: Cascade, onUpdate: Cascade)
