@@ -1,4 +1,3 @@
-import { Pagination } from "@/core/shared/domain/Pagination";
 import { Race } from "./Race";
 
 export interface RaceFilters {
@@ -7,7 +6,7 @@ export interface RaceFilters {
 }
 
 export interface RaceRepository {
-  find(filters: RaceFilters): Promise<Pagination<Race>>;
+  find(filters: RaceFilters): Promise<Race[]>;
   findById(id: number): Promise<Race | null>;
 
   create(race: Race): Promise<Race>;

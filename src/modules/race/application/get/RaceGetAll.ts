@@ -8,8 +8,7 @@ export class RaceGetAll {
     const data = await this.repository.find(filters);
 
     return {
-      ...data,
-      items: data.items.map((item) => RaceMapper.toDTO(item)),
+      items: data.map((item) => RaceMapper.toDTO(item)),
     };
   }
 }
