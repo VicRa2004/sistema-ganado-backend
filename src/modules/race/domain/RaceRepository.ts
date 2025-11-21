@@ -1,12 +1,7 @@
 import { Race } from "./Race";
 
-export interface RaceFilters {
-  page: number;
-  limit: number;
-}
-
 export interface RaceRepository {
-  find(filters: RaceFilters): Promise<Race[]>;
+  find(): Promise<Race[]>;
   findById(id: number): Promise<Race | null>;
 
   create(race: Race): Promise<Race>;
