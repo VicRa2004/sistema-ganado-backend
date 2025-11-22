@@ -17,11 +17,13 @@ import { UserCreate } from "@/modules/user/application/UserCreate";
 import { UserUpdate } from "@/modules/user/application/UserUpdate";
 import { UserDelete } from "@/modules/user/application/UserDelete";
 import { AuthLogin } from "@/modules/auth/application/AuthLogin";
+// vaiables de entorno
+import { vars } from "./config/env";
 
 const uploader = new CloudinaryImageUploader(
-  process.env.CLOUDINARY_CLOUD_NAME!,
-  process.env.CLOUDINARY_API_KEY!,
-  process.env.CLOUDINARY_API_SECRET!
+  vars.clCloudName,
+  vars.clCloudApiKey,
+  vars.clCloudApiSecret
 );
 
 // servicios
