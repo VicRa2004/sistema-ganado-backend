@@ -1,6 +1,6 @@
 import { Gender } from "../../domain/Gender";
 
-export interface CattleDTO {
+export interface CattleCreateDTO {
   description: string;
   gender: Gender;
   registrationNumber: string;
