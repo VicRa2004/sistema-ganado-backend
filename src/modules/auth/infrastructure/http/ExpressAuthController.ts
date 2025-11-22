@@ -28,7 +28,7 @@ export class ExpressAuthController {
 
       const data = await container.auth.register.run({
         ...body,
-        rol: body.rol as UserRol,
+        rol: UserRol.USER, // User por defecto
       });
 
       responseController({
