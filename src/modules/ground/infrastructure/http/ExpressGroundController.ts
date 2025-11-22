@@ -2,13 +2,15 @@ import { container } from "@/core/container";
 import { responseController } from "@/core/shared/infrastructure/response.controller";
 import { NextFunction, Request, Response } from "express";
 import { groundGetOneSchema, groundGetSchema } from "../schemas/get";
+import { userSchema } from "@/core/shared/infrastructure/schemas/user.schema";
 
 export class GroundController {
   async getAll(req: Request, res: Response, next: NextFunction) {
     try {
       const { body } = groundGetSchema.parse(req);
+      const { user } = userSchema.parse(req); // para verificar si existe el id
 
-      const data = await container.ground.getAll(body);
+      const data = await container.ground.getAll({ ...body, idUser: user.id });
 
       return responseController({
         res,
