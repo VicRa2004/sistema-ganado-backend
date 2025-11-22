@@ -11,6 +11,7 @@ import cors from "cors";
 import morgan from "morgan";
 import errorHandler from "./middlewares/error.middleware";
 import { error404 } from "./middlewares/error404.middleware";
+import { errorMiddleware } from "./core/shared/infrastructure/middlewares/error.middleware";
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(routes);
 app.use(error404);
 
 // Manejo de errores
+app.use(errorMiddleware); // middleware nuevo
 app.use(errorHandler);
 
 export default app;

@@ -1,0 +1,51 @@
+import { NextFunction, Request, Response } from "express";
+import { ErrorNotFound } from "../../domain/errors/ErrorNotFound";
+import { ErrorInvalidData } from "../../domain/errors/ErrorInvalidData";
+import { ErrorInvalidDate } from "../../domain/errors/ErrorInvalidDate";
+import { ErrorAuthInvalidToken } from "@/modules/auth/infrastructure/errors/ErrorAuthInvalidToken";
+import { ErrorUnauthorized } from "../errors/ErrorUnauthorized";
+
+const errorHandler = (
+  res: Response,
+  message: string = "Internal server error",
+  status: number = 500,
+  data: object = {}
+) => {
+  res.status(status).json({
+    success: false,
+    error: {
+      message,
+      ...data,
+    },
+  });
+};
+
+export const errorMiddleware = (
+  err: unknown,
+  _req: Request,
+  res: Response,
+  _next: NextFunction
+) => {
+  if (err instanceof ErrorNotFound) {
+    return void errorHandler(res, err.message, 404);
+  }
+
+  if (err instanceof ErrorInvalidData) {
+    return void errorHandler(res, err.message, 400);
+  }
+
+  if (err instanceof ErrorInvalidDate) {
+    return void errorHandler(res, err.message, 400);
+  }
+
+  if (err instanceof ErrorAuthInvalidToken) {
+    return void errorHandler(res, err.message, 401);
+  }
+
+  if (err instanceof ErrorUnauthorized) {
+    return void errorHandler(res, err.message, 403);
+  }
+
+  console.log(err);
+  return void errorHandler(res, "Internal server error", 500);
+};
