@@ -6,6 +6,4 @@ export interface UserCreateDTO {
   password: string;
   email: string;
   rol: UserRol;
-  createdAt: Date;
-  updatedAt: Date;
 }

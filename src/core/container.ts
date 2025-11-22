@@ -19,6 +19,7 @@ import { UserDelete } from "@/modules/user/application/UserDelete";
 import { AuthLogin } from "@/modules/auth/application/AuthLogin";
 // vaiables de entorno
 import { vars } from "./config/env";
+import { AuthRegister } from "@/modules/auth/application/AuthRegister";
 
 const uploader = new CloudinaryImageUploader(
   vars.clCloudName,
@@ -50,26 +51,28 @@ const userDelete = new UserDelete(userRepo);
 
 // use-case  de auth
 const authLogin = new AuthLogin(userRepo, tokenService, passwordHasher);
+const authRegister = new AuthRegister(userRepo, passwordHasher);
 
 // container
 export const container = {
   image: uploader,
   tokenService,
   auth: {
-    login: authLogin.run,
+    login: authLogin,
+    register: authRegister,
   },
   ground: {
-    getAll: groundGetAll.run,
-    getOne: groundGetOne.run,
-    create: groundCreate.run,
-    update: groundUpdate.run,
-    delete: groundDelete.run,
+    getAll: groundGetAll,
+    getOne: groundGetOne,
+    create: groundCreate,
+    update: groundUpdate,
+    delete: groundDelete,
   },
   user: {
-    getAll: userGetAll.run,
-    getOne: userGetOne.run,
-    create: userCreate.run,
-    update: userUpdate.run,
-    delete: userDelete.run,
+    getAll: userGetAll,
+    getOne: userGetOne,
+    create: userCreate,
+    update: userUpdate,
+    delete: userDelete,
   },
 };

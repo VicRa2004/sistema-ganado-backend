@@ -4,6 +4,7 @@ import { ErrorInvalidData } from "../../domain/errors/ErrorInvalidData";
 import { ErrorInvalidDate } from "../../domain/errors/ErrorInvalidDate";
 import { ErrorAuthInvalidToken } from "@/modules/auth/infrastructure/errors/ErrorAuthInvalidToken";
 import { ErrorUnauthorized } from "../errors/ErrorUnauthorized";
+import { ZodError } from "zod";
 
 const errorHandler = (
   res: Response,
@@ -46,6 +47,11 @@ export const errorMiddleware = (
     return void errorHandler(res, err.message, 403);
   }
 
+  if (err instanceof ZodError) {
+    return void errorHandler(res, err.message, 400);
+  }
+
   console.log(err);
+
   return void errorHandler(res, "Internal server error", 500);
 };

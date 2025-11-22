@@ -10,7 +10,10 @@ export class GroundController {
       const { body } = groundGetSchema.parse(req);
       const { user } = userSchema.parse(req); // para verificar si existe el id
 
-      const data = await container.ground.getAll({ ...body, idUser: user.id });
+      const data = await container.ground.getAll.run({
+        ...body,
+        idUser: user.id,
+      });
 
       return responseController({
         res,
@@ -26,7 +29,7 @@ export class GroundController {
     try {
       const { params } = groundGetOneSchema.parse(req);
 
-      const data = await container.ground.getOne(params.id);
+      const data = await container.ground.getOne.run(params.id);
 
       return responseController({
         res,

@@ -6,10 +6,10 @@ import path from "path";
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 import express from "express";
-import routes from "./routes/index.routes";
+//import routes from "./routes/index.routes";
+import { ExpressAppRouter } from "@/core/shared/infrastructure/http/ExpressAppRouter";
 import cors from "cors";
 import morgan from "morgan";
-import errorHandler from "./middlewares/error.middleware";
 import { error404 } from "./middlewares/error404.middleware";
 import { errorMiddleware } from "./core/shared/infrastructure/middlewares/error.middleware";
 
@@ -19,13 +19,14 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors());
 
-app.use(routes);
+//app.use(routes);
+// ruta de la app con arquitecturas limpias
+app.use(ExpressAppRouter);
 
 // Manejo de rutas cualquiera
 app.use(error404);
 
 // Manejo de errores
 app.use(errorMiddleware); // middleware nuevo
-app.use(errorHandler);
 
 export default app;

@@ -1,17 +1,17 @@
 import "express";
-import { UserRol } from "./modules/user/domain/UserRol";
+import { UserRol } from "@/modules/user/domain/UserRol";
 
 declare module "express" {
-  interface UserPayload {
-    id: number;
-    email: string;
-    rol: UserRol;
-  }
-
   interface Request {
-    user?: UserPayload; // Adjunta el payload del token JWT
+    user?: {
+      id: number;
+      email: string;
+      rol: UserRol;
+    };
   }
 }
+
+export {};
 
 // Agregar la tabla venta ganado
 

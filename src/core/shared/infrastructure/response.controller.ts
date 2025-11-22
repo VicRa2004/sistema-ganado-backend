@@ -4,13 +4,13 @@ interface ResponseProps {
   res: Response;
   data?: object;
   message?: string;
-  status: number;
+  status?: number;
 }
 
 export const responseController = ({
   res,
   data,
-  status,
+  status = 200,
   message,
 }: ResponseProps) => {
   res

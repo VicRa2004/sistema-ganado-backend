@@ -3,6 +3,7 @@ import { TokenService } from "./ports/TokenService";
 import { AuthLoginDTO } from "./dtos/AuthLoginDTO";
 import { PasswordHasher } from "@/modules/user/application/port/PasswordHasher";
 import { LoginMapper } from "./mapper/LoginMapper";
+import { ErrorUserNotFound } from "@/modules/user/domain/errors/ErrorUserNotFound";
 
 export class AuthLogin {
   constructor(
@@ -15,7 +16,7 @@ export class AuthLogin {
     const user = await this.userRepo.findByEmail(data.email);
 
     if (!user) {
-      return null;
+      throw new ErrorUserNotFound();
     }
 
     const password = user.getPassword();
