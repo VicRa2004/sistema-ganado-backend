@@ -82,7 +82,7 @@ model Cattle {
   color                 String
   birthdate             DateTime
   observations          String
-  image                 String
+  image                 String?
   reason_for_withdrawal String?
   status                Int      @default(1)
   id_iron               Int?
