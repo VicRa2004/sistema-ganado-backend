@@ -5,12 +5,15 @@ import { GroundGetAll } from "@/modules/ground/application/get/GroundGetAll";
 import { GroundGetOne } from "@/modules/ground/application/get/GroundGetOne";
 import { GroundUpdate } from "@/modules/ground/application/GroundUpdate";
 import { GroundDelete } from "@/modules/ground/application/GroundDelete";
+import { JWTTokenService } from "@/modules/auth/infrastructure/ports/JWTTokenService";
 
 const uploader = new CloudinaryImageUploader(
   process.env.CLOUDINARY_CLOUD_NAME!,
   process.env.CLOUDINARY_API_KEY!,
   process.env.CLOUDINARY_API_SECRET!
 );
+
+const tokenService = new JWTTokenService("secret-1", "7d");
 
 // Repositorios
 const groundRepo = new PrismaGroundRepository();
@@ -25,6 +28,7 @@ const groundDelete = new GroundDelete(groundRepo);
 // container
 export const container = {
   image: uploader,
+  tokenService,
   ground: {
     getAll: groundGetAll.run,
     getOne: groundGetOne.run,

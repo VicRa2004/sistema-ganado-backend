@@ -1,9 +1,11 @@
 import "express";
+import { UserRol } from "./modules/user/domain/UserRol";
 
 declare module "express" {
   interface UserPayload {
     id: number;
     email: string;
+    rol: UserRol;
   }
 
   interface Request {
@@ -66,7 +68,7 @@ export interface Iron {
 export interface Cattle {
   id_cattle: number;
   description: string;
-  father?: number | null ;
+  father?: number | null;
   mother?: number | null;
   gender: "male" | "female";
   registrationNumber: string; // Arete Numero grande
