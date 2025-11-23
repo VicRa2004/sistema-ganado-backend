@@ -3,7 +3,8 @@ import { TokenService } from "./ports/TokenService";
 import { AuthLoginDTO } from "./dtos/AuthLoginDTO";
 import { PasswordHasher } from "@/modules/user/application/port/PasswordHasher";
 import { LoginMapper } from "./mapper/LoginMapper";
-import { ErrorUserNotFound } from "@/modules/user/domain/errors/ErrorUserNotFound";
+import { ErrorInvalidCredentials } from "../infrastructure/errors/ErrorInvalidCredentials";
+import { ErrorEmailNotVerified } from "../domain/errors/ErrorEmailNotVerified";
 
 export class AuthLogin {
   constructor(
@@ -16,7 +17,11 @@ export class AuthLogin {
     const user = await this.userRepo.findByEmail(data.email);
 
     if (!user) {
-      throw new ErrorUserNotFound();
+      throw new ErrorInvalidCredentials();
+    }
+
+    if (!user.isEmailConfirm()) {
+      throw new ErrorEmailNotVerified();
     }
 
     const password = user.getPassword();
@@ -24,7 +29,7 @@ export class AuthLogin {
     const isValidate = await this.hasher.compare(data.password, password);
 
     if (!isValidate) {
-      return null;
+      throw new ErrorInvalidCredentials();
     }
 
     const token = this.tokenService.generateToken({

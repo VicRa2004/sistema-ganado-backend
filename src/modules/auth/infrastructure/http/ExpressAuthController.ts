@@ -9,9 +9,8 @@ export class ExpressAuthController {
   async login(req: Request, res: Response, next: NextFunction) {
     try {
       const { body } = loginSchema.parse(req);
-      console.log(body);
+
       const data = await container.auth.login.run(body);
-      console.log(data);
 
       responseController({
         res,

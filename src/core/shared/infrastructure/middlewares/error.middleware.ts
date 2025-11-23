@@ -5,6 +5,8 @@ import { ErrorInvalidDate } from "../../domain/errors/ErrorInvalidDate";
 import { ErrorAuthInvalidToken } from "@/modules/auth/infrastructure/errors/ErrorAuthInvalidToken";
 import { ErrorUnauthorized } from "../errors/ErrorUnauthorized";
 import { ZodError } from "zod";
+import { ErrorInvalidCredentials } from "@/modules/auth/infrastructure/errors/ErrorInvalidCredentials";
+import { ErrorEmailNotVerified } from "@/modules/auth/domain/errors/ErrorEmailNotVerified";
 
 const errorHandler = (
   res: Response,
@@ -27,6 +29,14 @@ export const errorMiddleware = (
   res: Response,
   _next: NextFunction
 ) => {
+  if (err instanceof ErrorInvalidCredentials) {
+    return void errorHandler(res, err.message, 400);
+  }
+
+  if (err instanceof ErrorEmailNotVerified) {
+    return void errorHandler(res, err.message, 400);
+  }
+
   if (err instanceof ErrorNotFound) {
     return void errorHandler(res, err.message, 404);
   }
