@@ -24,6 +24,12 @@ import { UserActivateAccount } from "@/modules/user/application/UserActivateAcco
 import { JWTEmailToken } from "@/modules/user/infrastructure/ports/JWTTokenEmail";
 import { UserGenerateToken } from "@/modules/user/application/UserGenerateToken";
 import { sendEmailUseCase } from "@/modules/email/infrastructure";
+import { IronGetAll } from "@/modules/iron/application/get/IronGetAll";
+import { PrismaIronRepository } from "@/modules/iron/infrastructure/repositories/PrismaIronRepository";
+import { IronGetOne } from "@/modules/iron/application/get/IronGetOne";
+import { IronCreate } from "@/modules/iron/application/IronCreate";
+import { IronUpdate } from "@/modules/iron/application/IronUpdate";
+import { IronDelete } from "@/modules/iron/application/IronDelete";
 
 const uploader = new CloudinaryImageUploader(
   vars.clCloudName,
@@ -38,6 +44,7 @@ const passwordHasher = new BcryptPasswordHasher();
 
 // Repositorios
 const groundRepo = new PrismaGroundRepository();
+const ironRepo = new PrismaIronRepository();
 const userRepo = new PrismaUserRepository();
 
 // use-cases de ground
@@ -46,6 +53,12 @@ const groundGetOne = new GroundGetOne(groundRepo);
 const groundCreate = new GroundCreate(groundRepo);
 const groundUpdate = new GroundUpdate(groundRepo);
 const groundDelete = new GroundDelete(groundRepo);
+
+const ironGetAll = new IronGetAll(ironRepo);
+const ironGetOne = new IronGetOne(ironRepo);
+const ironCreate = new IronCreate(ironRepo);
+const ironUpdate = new IronUpdate(ironRepo);
+const ironDelete = new IronDelete(ironRepo);
 
 // use-case de user
 const userGetAll = new UserGetAll(userRepo);
@@ -74,6 +87,13 @@ export const container = {
     create: groundCreate,
     update: groundUpdate,
     delete: groundDelete,
+  },
+  iron: {
+    getAll: ironGetAll,
+    getOne: ironGetOne,
+    create: ironCreate,
+    update: ironUpdate,
+    delete: ironDelete,
   },
   user: {
     getAll: userGetAll,
