@@ -52,13 +52,13 @@ const groundGetAll = new GroundGetAll(groundRepo);
 const groundGetOne = new GroundGetOne(groundRepo);
 const groundCreate = new GroundCreate(groundRepo);
 const groundUpdate = new GroundUpdate(groundRepo);
-const groundDelete = new GroundDelete(groundRepo);
+const groundDelete = new GroundDelete(groundRepo, uploader);
 
 const ironGetAll = new IronGetAll(ironRepo);
 const ironGetOne = new IronGetOne(ironRepo);
 const ironCreate = new IronCreate(ironRepo);
 const ironUpdate = new IronUpdate(ironRepo);
-const ironDelete = new IronDelete(ironRepo);
+const ironDelete = new IronDelete(ironRepo, uploader);
 
 // use-case de user
 const userGetAll = new UserGetAll(userRepo);
