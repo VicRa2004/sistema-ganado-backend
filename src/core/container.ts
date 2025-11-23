@@ -20,6 +20,10 @@ import { AuthLogin } from "@/modules/auth/application/AuthLogin";
 // vaiables de entorno
 import { vars } from "./config/env";
 import { AuthRegister } from "@/modules/auth/application/AuthRegister";
+import { UserActivateAccount } from "@/modules/user/application/UserActivateAccount";
+import { JWTEmailToken } from "@/modules/user/infrastructure/ports/JWTTokenEmail";
+import { UserGenerateToken } from "@/modules/user/application/UserGenerateToken";
+import { sendEmailUseCase } from "@/modules/email/infrastructure";
 
 const uploader = new CloudinaryImageUploader(
   vars.clCloudName,
@@ -29,6 +33,7 @@ const uploader = new CloudinaryImageUploader(
 
 // servicios
 const tokenService = new JWTTokenService("secret-1", "7d");
+const tokenEmail = new JWTEmailToken("secret-1", "5m");
 const passwordHasher = new BcryptPasswordHasher();
 
 // Repositorios
@@ -48,6 +53,8 @@ const userGetOne = new UserGetOne(userRepo);
 const userCreate = new UserCreate(userRepo, passwordHasher);
 const userUpdate = new UserUpdate(userRepo);
 const userDelete = new UserDelete(userRepo);
+const userActivateAccount = new UserActivateAccount(userRepo, tokenEmail);
+const userGenerateToken = new UserGenerateToken(tokenEmail);
 
 // use-case  de auth
 const authLogin = new AuthLogin(userRepo, tokenService, passwordHasher);
@@ -74,5 +81,10 @@ export const container = {
     create: userCreate,
     update: userUpdate,
     delete: userDelete,
+    activate: userActivateAccount,
+    generateToken: userGenerateToken,
+  },
+  email: {
+    send: sendEmailUseCase,
   },
 };
