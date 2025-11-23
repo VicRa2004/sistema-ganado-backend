@@ -16,6 +16,6 @@ ExpressIronRouter.put(
   uploadImage,
   controller.update
 );
-ExpressIronRouter.delete("/iron", authMiddleware, controller.delete);
+ExpressIronRouter.delete("/iron/:id", authMiddleware, controller.delete);
 
 export { ExpressIronRouter };

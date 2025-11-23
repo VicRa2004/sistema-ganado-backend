@@ -98,12 +98,11 @@ export class ExpressIronController {
     try {
       const { params } = ironGetOneSchema.parse(req);
 
-      const data = container.iron.delete.run(params.id);
+      await container.iron.delete.run(params.id);
 
       responseController({
         res,
         message: "Iron deleted",
-        data,
       });
     } catch (error) {
       next(error);
