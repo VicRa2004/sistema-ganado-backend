@@ -16,6 +16,14 @@ export class CloudinaryImageUploader implements ImageUploader {
     });
   }
 
+  private extractPublicIdFromUrl(url: string): string {
+    const parts = url.split("/");
+    const filename = parts[parts.length - 1]; // abc123.jpg
+    const folder = parts[parts.length - 2]; // uploads
+    const publicId = `${folder}/${filename.replace(/\.[^.]+$/, "")}`;
+    return publicId;
+  }
+
   async upload(file: ImageFile): Promise<string> {
     if (!file) {
       throw new Error("No se proporcionó ningún archivo para subir.");
@@ -31,6 +39,22 @@ export class CloudinaryImageUploader implements ImageUploader {
       );
 
       stream.end(file.buffer);
+    });
+  }
+
+  deleteByUrl(url: string): Promise<void> {
+    const publicId = this.extractPublicIdFromUrl(url);
+
+    return new Promise((resolve, reject) => {
+      cloudinary.v2.uploader.destroy(publicId, (err, result) => {
+        if (err) return reject(err);
+
+        if (result?.result !== "ok" && result?.result !== "not found") {
+          return reject(new Error("Error al borrar imagen"));
+        }
+
+        resolve();
+      });
     });
   }
 }
