@@ -6,3 +6,9 @@ export const ironGetAllSchema = z.object({
     limit: z.coerce.number().positive().default(10),
   }),
 });
+
+export const ironGetOneSchema = z.object({
+  params: z.object({
+    id: z.coerce.number().positive(),
+  }),
+});
