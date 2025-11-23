@@ -24,7 +24,7 @@ export const authMiddleware = (
       throw new ErrorAuthInvalidToken();
     }
 
-    const data = container.tokenService.verifyToken(token);
+    const data = container.services.tokenService.verifyToken(token);
 
     if (!data) {
       throw new ErrorAuthInvalidToken();

@@ -50,7 +50,7 @@ export class GroundController {
       let imageURL;
 
       if (req.file) {
-        imageURL = await container.image.upload(req.file);
+        imageURL = await container.services.uploader.upload(req.file);
       }
 
       const data = await container.ground.create.run({
@@ -76,7 +76,7 @@ export class GroundController {
       let imageURL;
 
       if (req.file) {
-        imageURL = await container.image.upload(req.file);
+        imageURL = await container.services.uploader.upload(req.file);
       }
 
       const data = await container.ground.update.run({
