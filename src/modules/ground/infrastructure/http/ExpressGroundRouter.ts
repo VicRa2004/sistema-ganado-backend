@@ -25,6 +25,6 @@ ExpressGroundRouter.put(
   controller.update
 );
 
-ExpressGroundRouter.get("/ground/:id", authMiddleware, controller.delete);
+ExpressGroundRouter.delete("/ground/:id", authMiddleware, controller.delete);
 
 export { ExpressGroundRouter };
