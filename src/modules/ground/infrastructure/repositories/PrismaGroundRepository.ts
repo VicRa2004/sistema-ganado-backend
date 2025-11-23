@@ -32,6 +32,7 @@ export class PrismaGroundRepository implements GroundRepository {
         return Ground.create({
           id: item.id,
           name: item.name,
+          image: item.image ?? undefined,
           address: item.address,
           length: item.length,
           width: item.width,
@@ -59,6 +60,7 @@ export class PrismaGroundRepository implements GroundRepository {
     return Ground.create({
       id: item.id,
       name: item.name,
+      image: item.image ?? undefined,
       address: item.address,
       length: item.length,
       width: item.width,
@@ -85,6 +87,7 @@ export class PrismaGroundRepository implements GroundRepository {
     return Ground.create({
       id: groundCreated.id,
       name: groundCreated.name,
+      image: groundCreated.image ?? undefined,
       address: groundCreated.address,
       length: groundCreated.length,
       width: groundCreated.width,
@@ -99,11 +102,11 @@ export class PrismaGroundRepository implements GroundRepository {
     const groundUpdated = await prisma.ground.update({
       data: {
         name: ground.getName(),
+        image: ground.getImage(),
         address: ground.getAddress(),
         length: ground.getLength(),
         width: ground.getWidth(),
         notes: ground.getNotes(),
-        image: ground.getImage(),
       },
       where: {
         id: ground.getId(),
@@ -113,6 +116,7 @@ export class PrismaGroundRepository implements GroundRepository {
     return Ground.create({
       id: groundUpdated.id,
       name: groundUpdated.name,
+      image: groundUpdated.image ?? undefined,
       address: groundUpdated.address,
       length: groundUpdated.length,
       width: groundUpdated.width,

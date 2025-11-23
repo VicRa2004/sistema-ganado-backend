@@ -3,6 +3,7 @@ import { responseController } from "@/core/shared/infrastructure/response.contro
 import { NextFunction, Request, Response } from "express";
 import { groundGetOneSchema, groundGetSchema } from "../schemas/get";
 import { userSchema } from "@/core/shared/infrastructure/schemas/user.schema";
+import { groundCreateSchema } from "../schemas/post";
 
 export class GroundController {
   async getAll(req: Request, res: Response, next: NextFunction) {
@@ -43,6 +44,25 @@ export class GroundController {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
+      const { body } = groundCreateSchema.parse(req);
+      const { user } = userSchema.parse(req);
+      let imageURL;
+
+      if (req.file) {
+        imageURL = await container.image.upload(req.file);
+      }
+
+      const data = await container.ground.create.run({
+        ...body,
+        idUser: user.id,
+        image: imageURL,
+      });
+
+      return responseController({
+        res,
+        status: 200,
+        data,
+      });
     } catch (error) {
       next(error);
     }
