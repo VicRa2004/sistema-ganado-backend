@@ -6,16 +6,28 @@ import { Gender } from "../../domain/Gender";
 
 export class PrismaCattleRepository implements CattleRepository {
   async find(filters: CattleFilters): Promise<Pagination<Cattle>> {
-    const { limit, page, idUser, gender, idRace, status } = filters;
+    const { limit, page, idUser, gender, idRace, status, idGround } = filters;
 
     const totalItems = await prisma.cattle.count({
-      where: { id_user: idUser, gender, id_race: idRace, status },
+      where: {
+        id_user: idUser,
+        gender,
+        id_race: idRace,
+        status,
+        id_ground: idGround,
+      },
     });
 
     const items = await prisma.cattle.findMany({
       skip: (page - 1) * limit,
       take: limit,
-      where: { id_user: idUser, gender, id_race: idRace, status },
+      where: {
+        id_user: idUser,
+        gender,
+        id_race: idRace,
+        status,
+        id_ground: idGround,
+      },
     });
 
     const totalPages = Math.ceil(totalItems / limit);

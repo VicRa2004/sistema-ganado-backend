@@ -9,6 +9,7 @@ export interface CattleFilters {
   status?: number;
   idRace?: number;
   idUser?: number;
+  idGround?: number;
 }
 
 export interface CattleRepository {
