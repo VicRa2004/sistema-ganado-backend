@@ -4,7 +4,7 @@ import { loginSchema } from "../schema/loginSchema";
 import { responseController } from "@/core/shared/infrastructure/response.controller";
 import { registerSchema } from "../schema/registerSchema";
 import { UserRol } from "@/modules/user/domain/UserRol";
-import { vars } from "@config/vars";
+import { vars } from "@/core/config/env";
 import { tokenParams, userParams } from "../schema/verify";
 
 export class ExpressAuthController {
