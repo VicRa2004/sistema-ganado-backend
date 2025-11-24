@@ -3,8 +3,10 @@ import { PrismaGroundRepository } from "@/modules/ground/infrastructure/reposito
 import { PrismaUserRepository } from "@/modules/user/infrastructure/repositories/PrismaUserRepository";
 import { PrismaIronRepository } from "@/modules/iron/infrastructure/repositories/PrismaIronRepository";
 import { PrismaCattleRepository } from "@/modules/cattle/infrastructure/repositories/PrismaCattleRepository";
+import { PrismaRaceRepository } from "@/modules/race/infrastructure/repositories/PrismaRaceRepository";
 
 export const repositories = {
+  race: new PrismaRaceRepository(),
   ground: new PrismaGroundRepository(),
   iron: new PrismaIronRepository(),
   user: new PrismaUserRepository(),

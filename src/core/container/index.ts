@@ -7,6 +7,7 @@ import { userUseCases } from "./usecases/user";
 import { authUseCases } from "./usecases/auth";
 import { sendEmailUseCase } from "@/modules/email/infrastructure";
 import { cattleUseCases } from "./usecases/cattle";
+import { raceUseCases } from "./usecases/race";
 
 export const container = {
   repos: repositories,
@@ -16,6 +17,7 @@ export const container = {
   iron: ironUseCases,
   user: userUseCases,
   cattle: cattleUseCases,
+  race: raceUseCases,
   email: {
     send: sendEmailUseCase,
   },
