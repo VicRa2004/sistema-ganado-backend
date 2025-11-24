@@ -50,10 +50,12 @@ export const errorMiddleware = (
   }
 
   if (err instanceof ErrorAuthInvalidToken) {
+    console.log(err.message);
     return void errorHandler(res, err.message, 401);
   }
 
   if (err instanceof ErrorUnauthorized) {
+    console.log(err.message);
     return void errorHandler(res, err.message, 403);
   }
 

@@ -19,7 +19,11 @@ export const authMiddleware = (
 ) => {
   const token = req.headers.authorization?.split(" ")[1];
 
+  console.log("dkdkdkddkdk");
+  console.log(token);
+
   try {
+    console.log("llega");
     if (!token) {
       throw new ErrorAuthInvalidToken();
     }
