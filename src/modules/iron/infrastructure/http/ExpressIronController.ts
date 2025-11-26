@@ -30,7 +30,7 @@ export class ExpressIronController {
     try {
       const { params } = ironGetOneSchema.parse(req);
 
-      const data = container.iron.getOne.run(params.id);
+      const data = await container.iron.getOne.run(params.id);
 
       responseController({
         res,

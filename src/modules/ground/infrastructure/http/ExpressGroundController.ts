@@ -49,6 +49,8 @@ export class GroundController {
       const { user } = userSchema.parse(req);
       let imageURL;
 
+      console.log(req.file);
+
       if (req.file) {
         imageURL = await container.services.uploader.upload(req.file);
       }
