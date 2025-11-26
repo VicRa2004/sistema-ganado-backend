@@ -72,10 +72,20 @@ model Ground {
 }
 
 model Cattle {
-  id                    Int      @id @default(autoincrement())
-  description           String
-  father                Int?
-  mother                Int?
+  id          Int    @id @default(autoincrement())
+  description String
+
+  fatherInt Int? @map("father") // Renombramos la columna física para claridad
+  motherInt Int? @map("mother")
+
+  // Relaciones Virtuales
+  fatherInfo Cattle? @relation("FatherRelation", fields: [fatherInt], references: [id])
+  motherInfo Cattle? @relation("MotherRelation", fields: [motherInt], references: [id])
+
+  // Opuestos (necesarios para Prisma, aunque no los uses)
+  childrenAsFather Cattle[] @relation("FatherRelation")
+  childrenAsMother Cattle[] @relation("MotherRelation")
+
   gender                String
   registrationNumber    String
   lotNumber             String

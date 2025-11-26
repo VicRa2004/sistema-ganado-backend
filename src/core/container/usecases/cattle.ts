@@ -7,6 +7,7 @@ import { repositories } from "../repositories";
 import { services } from "../services";
 
 export const cattleUseCases = {
+  query: repositories.cattleQuery,
   getAll: new CattleGetAll(repositories.cattle),
   getOne: new CattleGetOne(repositories.cattle),
   create: new CattleCreate(repositories.cattle),
