@@ -32,14 +32,12 @@ export class PrismaCattleQueries implements CattleQueries {
         where,
         skip: (page - 1) * limit,
         take: limit,
-        orderBy: { createdAt: "desc" },
         include: {
           race: true,
           iron: true,
           ground: true,
           fatherInfo: true,
           motherInfo: true,
-          // NOTA: 'father' y 'mother' no se pueden incluir porque faltan las @relations en el schema
         },
       }),
     ]);
@@ -60,9 +58,9 @@ export class PrismaCattleQueries implements CattleQueries {
     // Nota: El cast 'as unknown' es por si tu clase Pagination tiene métodos específicos
   }
 
-  async getOne(id: number): Promise<CattleQuery> {
+  async getOne(id: number, idUser?: number): Promise<CattleQuery> {
     const cattle = await prisma.cattle.findUnique({
-      where: { id },
+      where: { id, id_user: idUser },
       include: {
         race: true,
         iron: true,

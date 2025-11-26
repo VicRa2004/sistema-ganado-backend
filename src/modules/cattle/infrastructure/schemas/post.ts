@@ -9,7 +9,7 @@ export const cattleCreateSchema = z.object({
     color: z.string(),
     birthdate: z.coerce.date(),
     observations: z.string(),
-    reasonForWithdrawal: z.string(),
+    reasonForWithdrawal: z.string().optional(),
     status: z.coerce.boolean(),
     idFather: z.coerce.number().optional(),
     idMother: z.coerce.number().optional(),

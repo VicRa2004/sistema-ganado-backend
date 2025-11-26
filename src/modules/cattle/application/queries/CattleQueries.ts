@@ -58,5 +58,5 @@ export interface CattleQueryFilters {
 
 export interface CattleQueries {
   getAll: (filters: CattleQueryFilters) => Promise<Pagination<CattleQuery>>;
-  getOne: (id: number) => Promise<CattleQuery>;
+  getOne: (id: number, userId?: number) => Promise<CattleQuery>;
 }

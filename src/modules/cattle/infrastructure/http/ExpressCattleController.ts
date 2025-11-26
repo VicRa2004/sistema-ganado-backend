@@ -42,6 +42,43 @@ export class ExpressCattleController {
     }
   }
 
+  async getAllByQuery(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { query } = cattleGetAllSchema.parse(req);
+      const { user } = userSchema.parse(req);
+
+      const data = await container.cattle.query.getAll({
+        ...query,
+        // undefined por mientras
+        status: undefined,
+        idUser: user.id,
+      });
+
+      responseController({
+        res,
+        data,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getOneByQuery(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { params } = cattleGetOneSchema.parse(req);
+      const { user } = userSchema.parse(req);
+
+      const data = await container.cattle.query.getOne(params.id, user.id);
+
+      responseController({
+        res,
+        data,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async create(req: Request, res: Response, next: NextFunction) {
     try {
       const { body } = cattleCreateSchema.parse(req);

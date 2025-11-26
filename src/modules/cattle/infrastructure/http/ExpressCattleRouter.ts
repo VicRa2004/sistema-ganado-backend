@@ -6,6 +6,18 @@ import { uploadImage } from "@/core/shared/infrastructure/middlewares/upload.mid
 const controller = new ExpressCattleController();
 const ExpressCattleRouter = Router();
 
+ExpressCattleRouter.get(
+  "/cattle/query",
+  authMiddleware,
+  controller.getAllByQuery
+);
+
+ExpressCattleRouter.get(
+  "/cattle/query/:id",
+  authMiddleware,
+  controller.getOneByQuery
+);
+
 ExpressCattleRouter.get("/cattle", authMiddleware, controller.getAll);
 
 ExpressCattleRouter.get("/cattle/:id", authMiddleware, controller.getOne);
