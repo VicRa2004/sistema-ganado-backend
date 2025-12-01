@@ -49,7 +49,7 @@ export class PrismaCattleQueries implements CattleQueries {
     // Asumiendo que tu clase Pagination acepta (data, total, page, limit)
     // Si es una interfaz simple, ajusta el retorno.
     return {
-      data,
+      items: data,
       total,
       page,
       limit,
