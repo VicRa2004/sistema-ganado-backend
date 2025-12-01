@@ -156,7 +156,7 @@ export class PrismaCattleRepository implements CattleRepository {
         motherInt: cattle.getIdMother(),
         id_ground: cattle.getIdGround(),
         id_race: cattle.getIdRace(),
-        id_iron: cattle.getIdUser(),
+        id_iron: cattle.getIdIron(),
       },
       where: {
         id: cattle.getId(),
