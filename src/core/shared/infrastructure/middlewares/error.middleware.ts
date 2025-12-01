@@ -7,6 +7,7 @@ import { ErrorUnauthorized } from "../errors/ErrorUnauthorized";
 import { ZodError } from "zod";
 import { ErrorInvalidCredentials } from "@/modules/auth/infrastructure/errors/ErrorInvalidCredentials";
 import { ErrorEmailNotVerified } from "@/modules/auth/domain/errors/ErrorEmailNotVerified";
+import { ErrorAccessDenied } from "../errors/ErrorAccessDenied";
 
 const errorHandler = (
   res: Response,
@@ -56,6 +57,11 @@ export const errorMiddleware = (
 
   if (err instanceof ErrorUnauthorized) {
     console.log(err.message);
+    return void errorHandler(res, err.message, 401);
+  }
+
+  if (err instanceof ErrorAccessDenied) {
+    console.log(err);
     return void errorHandler(res, err.message, 403);
   }
 
