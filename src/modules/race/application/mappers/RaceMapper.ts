@@ -8,6 +8,8 @@ export class RaceMapper {
       name: race.getName(),
       description: race.getDescription(),
       image: race.getImage(),
+      createdAt: race.getCreatedAt(),
+      updatedAt: race.getUpdatedAt(),
     };
   }
 }
