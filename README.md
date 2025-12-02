@@ -1,23 +1,40 @@
 # SISTEMA GANADO BACKEND
 
-## Problemas que soluciona
+## Requsitos
 
-El sistema esta echo para solucionar los problemas relacionados con el control del ganado,
-como lo puede ser tener multiples terrenos con multiples ganados, ademas de gestionar
-cosas como lo son cada cuanto pario una vaca.
+- Tener una base de datos PostgreSQL, ya sea en local o en la nube.
+- Tener Node.js instalado, de preferencia la version LTS mas reciente.
+- Tener una cuenta en Claudflare, no es indispensable, si se quiere cambiar de servicio cambiar la implementación en infrastructura de image.
+- Tener un servicio de correo tranccional, en nuestro caso solo usamos un correo basico con gmail, pero puede tener cualquier otro tipo.
 
-## Como ejecutar el proyecto
+## Instalación del aplicativo web(API)
 
-Para ejecutar el proyecto hay que tener un archivo .env:
+- Crear una base de datos vacia para poder ocuparla.
+- Crear el archivo .env con una estructura similar al .env.example para guardar las credenciales del proyecto.
 
-Ademas se necesita una base de datos mysql con la base de datos campo_db.
+Ejecutar los comandos de instalacion.
 
-## Tareas pendientes
+```bash
+npm install
+```
 
-- Ver que otros datos poner a todos los datos.
-- Ponerle filtros a los terrenos.
-- Ahora, estos seran despues si queda tiempo: por terreno y por padre o madre.
+Ejecutar el siguiente comando para sincronizar con la base de datos y generar las tablas.
 
-## Proximas cosas
+```bash
+npx prisma migrate dev
+```
 
-- Agregar una api especial para el administrador, aunque puede ser muy para despues.
+## Ejecución del servidor
+
+Ejecutar para desarrollo.
+
+```bash
+npm run dev
+```
+
+En caso de produccion, compilar el proyecto y ejecutar.
+
+```bash
+npm run build
+npm start
+```
