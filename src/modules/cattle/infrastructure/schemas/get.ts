@@ -8,6 +8,8 @@ export const cattleGetAllSchema = z.object({
     status: z.coerce.number().optional(),
     idRace: z.coerce.number().optional(),
     idGround: z.coerce.number().optional(),
+    idFather: z.coerce.number().optional(),
+    idMother: z.coerce.number().optional(),
   }),
 });
 

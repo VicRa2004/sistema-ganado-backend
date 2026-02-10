@@ -50,10 +50,12 @@ export interface CattleQueryFilters {
   page: number;
   limit: number;
   gender?: Gender;
-  status?: boolean; // si esta dado de baja o no
+  status?: boolean;
   idRace?: number;
   idUser?: number;
   idGround?: number;
+  idMother?: number;
+  idFather?: number;
 }
 
 export interface CattleQueries {

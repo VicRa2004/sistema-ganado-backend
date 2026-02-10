@@ -23,6 +23,8 @@ export class PrismaCattleQueries implements CattleQueries {
       ...(gender && { gender: String(gender) }),
       // Mapeo de Boolean a Int (asumiendo 1 = true, 0 = false)
       ...(status !== undefined && { status: status ? 1 : 0 }),
+      fatherInt: filters.idFather,
+      motherInt: filters.idMother,
     };
 
     // 2. Ejecutar consultas en paralelo (conteo y búsqueda)
@@ -90,7 +92,7 @@ export class PrismaCattleQueries implements CattleQueries {
         fatherInfo: true;
         motherInfo: true;
       };
-    }>
+    }>,
   ): CattleQuery {
     return {
       id: item.id,
